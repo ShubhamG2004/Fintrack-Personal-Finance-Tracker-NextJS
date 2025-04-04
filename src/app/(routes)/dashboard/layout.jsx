@@ -1,31 +1,40 @@
 'use client'
 
-import React, {useEffect} from 'react'
-
+import React, { useEffect } from 'react'
 import DashboardHeader from './_components/DashboardHeader'
-
 import { db } from '../../../../utils/dbConfig'
 import { Budgets } from '../../../../utils/schema'
 import { useUser } from '@clerk/nextjs'
-
 import { eq } from 'drizzle-orm'
 import { useRouter } from 'next/navigation'
 import SideNav from './_components/SideNav'
 
-
-function DashboardLayout({children}) {
-    const { user } = useUser()
+function DashboardLayout({ children }) {
+    const { isLoaded, user } = useUser()
     const router = useRouter()
 
     useEffect(() => {
-       user && checkUserBudgets()
-    }, [user])
+        if (isLoaded && user) {
+            checkUserBudgets()
+        }
+    }, [isLoaded, user])
 
     const checkUserBudgets = async () => {
-        const result = await db.select.from(Budgets).where(eq(Budgets.createdBy, user.primaryEmailAddress.emailAddress))
-        if(result?.length === 0) {
-            router.replace('/dashboard/budgets')
+        try {
+            const result = await db.select()
+                .from(Budgets)
+                .where(eq(Budgets.createdBy, user.primaryEmailAddress?.emailAddress))
+            
+            if (result?.length === 0) {
+                router.replace('/dashboard/budgets')
+            }
+        } catch (error) {
+            console.error('Error checking budgets:', error)
         }
+    }
+
+    if (!isLoaded) {
+        return <div>Loading...</div> 
     }
 
     return (
@@ -42,3 +51,5 @@ function DashboardLayout({children}) {
         </div>
     )
 }
+
+export default DashboardLayout

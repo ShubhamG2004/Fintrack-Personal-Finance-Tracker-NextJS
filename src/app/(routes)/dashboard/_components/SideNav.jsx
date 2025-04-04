@@ -9,7 +9,8 @@ import {
     ReceiptText,
     ShieldCheck,
     CircleDollarSign,
-} from 'lucide-react'
+} from 'lucide-react';
+
 import { UserButton } from "@clerk/nextjs";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
