@@ -10,33 +10,55 @@ function Header() {
     const { user, isSignedIn } = useUser();
 
     return (
-        <div className='p-5 flex justify-between items-center border shadow-sm'>
-            <div className='flex flex-row items-center gap-2'>
-                <Image 
-                    src="/assets/logo.png" 
-                    alt="logo" 
-                    width={50} 
-                    height={50}
-                />  
-                <span className='text-blue-500 font-bold text-xl'>FinTrack</span>
+        <header className='sticky top-0 z-50 bg-white/80 backdrop-blur-md p-4 border-b shadow-sm'>
+            <div className='max-w-7xl mx-auto flex justify-between items-center'>
+                <Link href="/" className='flex items-center gap-2 group'>
+                    <div className='transition-transform duration-300 group-hover:scale-110'>
+                        <Image 
+                            src="/assets/logo.png" 
+                            alt="FinTrack Logo" 
+                            width={50} 
+                            height={50}
+                            className='drop-shadow-md'
+                        />  
+                    </div>
+                    <span className='text-blue-600 font-bold text-2xl tracking-tight'>
+                        <span className='text-blue-600 font-extrabold'>FinTrack</span>
+                    </span>
+                </Link>
+
+                {isSignedIn ? (
+                    <div className='flex items-center gap-4'>
+                        <Link href='/dashboard'>
+                            <Button variant="ghost" className='text-blue-600 hover:bg-blue-50'>
+                                Dashboard
+                            </Button>
+                        </Link>
+                        <UserButton 
+                            afterSignOutUrl="/"
+                            appearance={{
+                                elements: {
+                                    avatarBox: "w-10 h-10 border-2 border-blue-100",
+                                }
+                            }}
+                        />
+                    </div>
+                ) : (
+                    <div className='flex gap-3 items-center'>
+                        <Link href='/sign-in'>
+                            <Button variant="outline" className="rounded-full border-blue-300 text-blue-600 hover:text-blue-700 hover:border-blue-400 transition-colors">
+                                Sign In
+                            </Button>
+                        </Link>
+                        <Link href='/sign-up'>
+                            <Button className="rounded-full bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white shadow-md hover:shadow-lg transition-all">
+                                Get Started
+                            </Button>
+                        </Link>
+                    </div>
+                )}
             </div>
-            {isSignedIn ? (
-                <UserButton afterSignOutUrl="/"/>
-            ) : (
-                <div className='flex gap-3 items-center'>
-                    <Link href='/dashboard'>
-                        <Button variant="outline" className="rounded-full">
-                            Dashboard
-                        </Button>
-                    </Link>
-                    <Link href='/sign-up'>
-                        <Button className="rounded-full">
-                            Get Started
-                        </Button>
-                    </Link>
-                </div>
-            )}
-        </div>
+        </header>
     )
 }
 
