@@ -15,7 +15,7 @@ export const Budgets = pgTable('budgets',{
 
 
 // income schema
-export const Income = pgTable('incomes',{
+export const Incomes = pgTable('incomes',{
     id:serial('id').primaryKey(),
     name:varchar('name', {length: 255}).notNull(),
     amount:varchar('amount').notNull(),

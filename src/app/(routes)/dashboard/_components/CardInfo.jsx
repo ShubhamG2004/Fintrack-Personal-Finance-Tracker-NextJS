@@ -1,4 +1,4 @@
-import { formatNumber } from "@/utils";  // From index.js
+import formatNumber from "@/utils/formatNumber"; 
 import getFinancialAdvice from "@/utils/getFinancialAdvice"; 
 import {
   PiggyBank,
