@@ -30,10 +30,6 @@ function DashboardHeader() {
         </button>
         
         <div className="flex items-center space-x-2 ml-4">
-          <div className="text-right hidden md:block">
-            <p className="text-sm font-medium text-gray-800">John Doe</p>
-            <p className="text-xs text-gray-500">Admin</p>
-          </div>
           <div className="border-2 border-blue-100 rounded-full">
             <UserButton 
               afterSignOutUrl="/"

@@ -5,7 +5,7 @@ import {
   ReceiptText,
   Wallet,
   Sparkles,
-  CircleDollarSign,
+  IndianRupee,
 } from "lucide-react";
 import React, { useEffect, useState } from "react";
 
@@ -37,7 +37,6 @@ function CardInfo({ budgetList, incomeList }) {
   }, [totalBudget, totalIncome, totalSpend]);
 
   const CalculateCardInfo = () => {
-    console.log(budgetList);
     let totalBudget_ = 0;
     let totalSpend_ = 0;
     let totalIncome_ = 0;
@@ -60,67 +59,94 @@ function CardInfo({ budgetList, incomeList }) {
     <div>
       {budgetList?.length > 0 ? (
         <div>
-          <div className="p-7 border mt-4 -mb-1 rounded-2xl flex items-center justify-between">
-            <div className="">
-              <div className="flex mb-2 flex-row space-x-1 items-center ">
-                <h2 className="text-md ">Finan Smart AI</h2>
-                <Sparkles
-                  className="rounded-full text-white w-10 h-10 p-2
-    bg-gradient-to-r
-    from-pink-500
-    via-red-500
-    to-yellow-500
-    background-animate"
-                />
+          {/* AI Advice Card */}
+          <div className="p-6 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-2xl shadow-lg text-white mb-6">
+            <div className="flex items-center justify-between">
+              <div className="flex-1">
+                <div className="flex items-center mb-3">
+                  <h2 className="text-lg font-semibold mr-2">FinTrack AI</h2>
+                  <Sparkles className="w-5 h-5 text-yellow-300 animate-pulse" />
+                </div>
+                <p className="text-sm font-light leading-relaxed">
+                  {financialAdvice || "Analyzing your financial data..."}
+                </p>
               </div>
-              <h2 className="font-light text-md">
-                {financialAdvice || "Loading financial advice..."}
-              </h2>
+              <div className="hidden md:block ml-4">
+                <div className="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center">
+                  <Sparkles className="w-8 h-8 text-yellow-300" />
+                </div>
+              </div>
             </div>
           </div>
 
-          <div className="mt-7 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-            <div className="p-7 border rounded-2xl flex items-center justify-between">
-              <div>
-                <h2 className="text-sm">Total Budget</h2>
-                <h2 className="font-bold text-2xl">
-                  ${formatNumber(totalBudget)}
-                </h2>
+          {/* Stats Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+            {/* Total Budget Card */}
+            <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-all duration-300 group">
+              <div className="flex justify-between items-center">
+                <div>
+                  <p className="text-sm text-gray-500 mb-1">Total Budget</p>
+                  <h3 className="text-2xl font-bold text-gray-800">
+                    ₹{formatNumber(totalBudget)}
+                  </h3>
+                </div>
+                <div className="bg-blue-100 group-hover:bg-blue-600 transition-all duration-300 p-3 rounded-lg">
+                  <PiggyBank className="text-blue-600 group-hover:text-white h-6 w-6" />
+                </div>
               </div>
-              <PiggyBank className="bg-blue-800 p-3 h-12 w-12 rounded-full text-white" />
             </div>
-            <div className="p-7 border rounded-2xl flex items-center justify-between">
-              <div>
-                <h2 className="text-sm">Total Spend</h2>
-                <h2 className="font-bold text-2xl">
-                  ${formatNumber(totalSpend)}
-                </h2>
+
+            {/* Total Spend Card */}
+            <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-all duration-300 group">
+              <div className="flex justify-between items-center">
+                <div>
+                  <p className="text-sm text-gray-500 mb-1">Total Spend</p>
+                  <h3 className="text-2xl font-bold text-gray-800">
+                    ₹{formatNumber(totalSpend)}
+                  </h3>
+                </div>
+                <div className="bg-red-100 group-hover:bg-red-600 transition-all duration-300 p-3 rounded-lg">
+                  <ReceiptText className="text-red-600 group-hover:text-white h-6 w-6" />
+                </div>
               </div>
-              <ReceiptText className="bg-blue-800 p-3 h-12 w-12 rounded-full text-white" />
             </div>
-            <div className="p-7 border rounded-2xl flex items-center justify-between">
-              <div>
-                <h2 className="text-sm">No. Of Budget</h2>
-                <h2 className="font-bold text-2xl">{budgetList?.length}</h2>
+
+            {/* Budget Count Card */}
+            <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-all duration-300 group">
+              <div className="flex justify-between items-center">
+                <div>
+                  <p className="text-sm text-gray-500 mb-1">No. Of Budgets</p>
+                  <h3 className="text-2xl font-bold text-gray-800">
+                    {budgetList?.length}
+                  </h3>
+                </div>
+                <div className="bg-green-100 group-hover:bg-green-600 transition-all duration-300 p-3 rounded-lg">
+                  <Wallet className="text-green-600 group-hover:text-white h-6 w-6" />
+                </div>
               </div>
-              <Wallet className="bg-blue-800 p-3 h-12 w-12 rounded-full text-white" />
             </div>
-            <div className="p-7 border rounded-2xl flex items-center justify-between">
-              <div>
-                <h2 className="text-sm">Sum of Income Streams</h2>
-                <h2 className="font-bold text-2xl">
-                  ${formatNumber(totalIncome)}
-                </h2>
+
+            {/* Income Card */}
+            <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-all duration-300 group">
+              <div className="flex justify-between items-center">
+                <div>
+                  <p className="text-sm text-gray-500 mb-1">Total Income</p>
+                  <h3 className="text-2xl font-bold text-gray-800">
+                    ₹{formatNumber(totalIncome)}
+                  </h3>
+                </div>
+                <div className="bg-purple-100 group-hover:bg-purple-600 transition-all duration-300 p-3 rounded-lg">
+                  <IndianRupee className="text-purple-600 group-hover:text-white h-6 w-6" />
+                </div>
               </div>
-              <CircleDollarSign className="bg-blue-800 p-3 h-12 w-12 rounded-full text-white" />
             </div>
           </div>
         </div>
       ) : (
-        <div className="mt-7 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {[1, 2, 3].map((item, index) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+          {[1, 2, 3, 4].map((item, index) => (
             <div
-              className="h-[110px] w-full bg-slate-200 animate-pulse rounded-lg"
+              className="h-[120px] w-full bg-gradient-to-r from-gray-100 to-gray-50 animate-pulse rounded-xl"
               key={index}
             ></div>
           ))}

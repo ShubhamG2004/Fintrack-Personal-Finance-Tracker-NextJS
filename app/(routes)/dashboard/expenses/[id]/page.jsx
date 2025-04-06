@@ -8,7 +8,7 @@ import BudgetItem from "../../budgets/_components/BudgetItem";
 import AddExpense from "../_components/AddExpense";
 import ExpenseListTable from "../_components/ExpenseListTable";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Pen, PenBox, Trash } from "lucide-react";
+import { ArrowLeft, Loader2, PenBox, Trash } from "lucide-react";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -26,126 +26,162 @@ import EditBudget from "../_components/EditBudget";
 
 function ExpensesScreen({ params }) {
   const { user } = useUser();
-  const [budgetInfo, setbudgetInfo] = useState();
+  const [budgetInfo, setBudgetInfo] = useState(null);
   const [expensesList, setExpensesList] = useState([]);
-  const route = useRouter();
+  const [loading, setLoading] = useState(false);
+  const [deleting, setDeleting] = useState(false);
+  const router = useRouter();
+
   useEffect(() => {
     user && getBudgetInfo();
   }, [user]);
 
-  /**
-   * Get Budget Information
-   */
   const getBudgetInfo = async () => {
-    const result = await db
-      .select({
-        ...getTableColumns(Budgets),
-        totalSpend: sql`sum(${Expenses.amount})`.mapWith(Number),
-        totalItem: sql`count(${Expenses.id})`.mapWith(Number),
-      })
-      .from(Budgets)
-      .leftJoin(Expenses, eq(Budgets.id, Expenses.budgetId))
-      .where(eq(Budgets.createdBy, user?.primaryEmailAddress?.emailAddress))
-      .where(eq(Budgets.id, params.id))
-      .groupBy(Budgets.id);
-
-    setbudgetInfo(result[0]);
-    getExpensesList();
-  };
-
-  /**
-   * Get Latest Expenses
-   */
-  const getExpensesList = async () => {
-    const result = await db
-      .select()
-      .from(Expenses)
-      .where(eq(Expenses.budgetId, params.id))
-      .orderBy(desc(Expenses.id));
-    setExpensesList(result);
-    console.log(result);
-  };
-
-  /**
-   * Used to Delete budget
-   */
-  const deleteBudget = async () => {
-    const deleteExpenseResult = await db
-      .delete(Expenses)
-      .where(eq(Expenses.budgetId, params.id))
-      .returning();
-
-    if (deleteExpenseResult) {
+    setLoading(true);
+    try {
       const result = await db
-        .delete(Budgets)
+        .select({
+          ...getTableColumns(Budgets),
+          totalSpend: sql`sum(${Expenses.amount})`.mapWith(Number),
+          totalItem: sql`count(${Expenses.id})`.mapWith(Number),
+        })
+        .from(Budgets)
+        .leftJoin(Expenses, eq(Budgets.id, Expenses.budgetId))
+        .where(eq(Budgets.createdBy, user?.primaryEmailAddress?.emailAddress))
         .where(eq(Budgets.id, params.id))
-        .returning();
+        .groupBy(Budgets.id);
+
+      setBudgetInfo(result[0]);
+      await getExpensesList();
+    } catch (error) {
+      toast.error("Failed to load budget");
+    } finally {
+      setLoading(false);
     }
-    toast("Budget Deleted !");
-    route.replace("/dashboard/budgets");
   };
+
+  const getExpensesList = async () => {
+    try {
+      const result = await db
+        .select()
+        .from(Expenses)
+        .where(eq(Expenses.budgetId, params.id))
+        .orderBy(desc(Expenses.id));
+      setExpensesList(result);
+    } catch (error) {
+      toast.error("Failed to load expenses");
+    }
+  };
+
+  const deleteBudget = async () => {
+    setDeleting(true);
+    try {
+      await db.delete(Expenses).where(eq(Expenses.budgetId, params.id));
+      await db.delete(Budgets).where(eq(Budgets.id, params.id));
+
+      toast.success("Budget Deleted", {
+        description: "All related expenses have been removed",
+      });
+      router.replace("/dashboard/budgets");
+    } catch (error) {
+      toast.error("Failed to delete budget");
+    } finally {
+      setDeleting(false);
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <Loader2 className="w-8 h-8 animate-spin text-indigo-600" />
+      </div>
+    );
+  }
 
   return (
-    <div className="p-10">
-      <h2 className="text-2xl font-bold gap-2 flex justify-between items-center">
-        <span className="flex gap-2 items-center">
-          <ArrowLeft onClick={() => route.back()} className="cursor-pointer" />
-          My Expenses
-        </span>
-        <div className="flex gap-2 items-center">
-          <EditBudget
-            budgetInfo={budgetInfo}
-            refreshData={() => getBudgetInfo()}
-          />
+    <div className="p-4 md:p-8 max-w-6xl mx-auto">
+      <div className="flex flex-col gap-6">
+        {/* Header Section */}
+        <div className="flex flex-col gap-4">
+          <div className="flex items-center gap-4">
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => router.back()}
+              className="rounded-full hover:bg-gray-100"
+            >
+              <ArrowLeft className="w-5 h-5" />
+            </Button>
+            <h1 className="text-2xl md:text-3xl font-bold text-gray-800">
+              Expense Management
+            </h1>
+          </div>
 
-          <AlertDialog>
-            <AlertDialogTrigger asChild>
-              <Button className="flex gap-2 rounded-full" variant="destructive">
-                <Trash className="w-4" /> Delete
-              </Button>
-            </AlertDialogTrigger>
-            <AlertDialogContent>
-              <AlertDialogHeader>
-                <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-                <AlertDialogDescription>
-                  This action cannot be undone. This will permanently delete
-                  your current budget along with expenses and remove your data
-                  from our servers.
-                </AlertDialogDescription>
-              </AlertDialogHeader>
-              <AlertDialogFooter>
-                <AlertDialogCancel>Cancel</AlertDialogCancel>
-                <AlertDialogAction onClick={() => deleteBudget()}>
-                  Continue
-                </AlertDialogAction>
-              </AlertDialogFooter>
-            </AlertDialogContent>
-          </AlertDialog>
+          {/* Action Buttons */}
+          <div className="flex gap-3 justify-end">
+            <EditBudget
+              budgetInfo={budgetInfo}
+              refreshData={getBudgetInfo}
+            />
+
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <Button
+                  variant="destructive"
+                  className="gap-2 rounded-full"
+                >
+                  <Trash className="w-4 h-4" />
+                  Delete Budget
+                </Button>
+              </AlertDialogTrigger>
+              <AlertDialogContent className="rounded-xl">
+                <AlertDialogHeader>
+                  <AlertDialogTitle>Confirm Deletion</AlertDialogTitle>
+                  <AlertDialogDescription className="text-gray-600">
+                    This will permanently delete the "{budgetInfo?.name}" budget and all 
+                    {budgetInfo?.totalItem} associated expenses. This action cannot be undone.
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel className="rounded-xl">Cancel</AlertDialogCancel>
+                  <AlertDialogAction
+                    onClick={deleteBudget}
+                    disabled={deleting}
+                    className="rounded-xl bg-red-600 hover:bg-red-700"
+                  >
+                    {deleting ? (
+                      <Loader2 className="w-4 h-4 animate-spin" />
+                    ) : (
+                      "Delete Permanently"
+                    )}
+                  </AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
+          </div>
         </div>
-      </h2>
-      <div
-        className="grid grid-cols-1 
-        md:grid-cols-2 mt-6 gap-5"
-      >
-        {budgetInfo ? (
-          <BudgetItem budget={budgetInfo} />
-        ) : (
-          <div
-            className="h-[150px] w-full bg-slate-200 
-            rounded-lg animate-pulse"
-          ></div>
-        )}
-        <AddExpense
-          budgetId={params.id}
-          user={user}
-          refreshData={() => getBudgetInfo()}
-        />
-      </div>
-      <div className="mt-4">
-        <ExpenseListTable
-          expensesList={expensesList}
-          refreshData={() => getBudgetInfo()}
-        />
+
+        {/* Budget and Add Expense Cards */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {budgetInfo ? (
+            <BudgetItem budget={budgetInfo} />
+          ) : (
+            <div className="h-48 bg-gray-100 rounded-xl animate-pulse"></div>
+          )}
+          <AddExpense
+            budgetId={params.id}
+            user={user}
+            refreshData={getBudgetInfo}
+          />
+        </div>
+
+        {/* Expenses Table */}
+        <div className="mt-2">
+          <ExpenseListTable
+            expensesList={expensesList}
+            refreshData={getBudgetInfo}
+          />
+        </div>
       </div>
     </div>
   );
