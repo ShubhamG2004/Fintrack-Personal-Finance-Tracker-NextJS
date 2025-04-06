@@ -5,7 +5,7 @@ import { UserButton, useUser } from '@clerk/nextjs'
 import CardInfo from './_components/CardInfo';
 import { eq, getTableColumns } from 'drizzle-orm';
 import { BarChart, Bug } from 'lucide-react';
-import { Expenses } from '../../../../utils/schema';
+import { Expenses } from '@/utils/schema';
 
 
 function Dashboard(){
