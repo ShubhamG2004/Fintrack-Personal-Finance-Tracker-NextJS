@@ -9,9 +9,9 @@ const getFinancialAdvice = async (totalBudget, totalIncome, totalSpend) => {
   try {
     const userPrompt = `
       Based on the following financial data:
-      - Total Budget: ${totalBudget} USD 
-      - Expenses: ${totalSpend} USD 
-      - Incomes: ${totalIncome} USD
+      - Total Budget: ${totalBudget} (Indian Rupees) 
+      - Expenses: ${totalSpend} (Indian Rupees) 
+      - Incomes: ${totalIncome} (Indian Rupees)
       Provide detailed financial advice in 2 sentences to help the user manage their finances more effectively.
       Be concise yet insightful, focusing on practical recommendations.
     `;

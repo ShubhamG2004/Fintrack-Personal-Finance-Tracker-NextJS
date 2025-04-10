@@ -17,6 +17,7 @@ function ExpenseListTable({ expensesList, refreshData }) {
       refreshData();
     }
   };
+  
   return (
     <div className="mt-3">
       <h2 className="font-bold text-lg">Latest Expenses</h2>
@@ -26,23 +27,20 @@ function ExpenseListTable({ expensesList, refreshData }) {
         <h2 className="font-bold">Date</h2>
         <h2 className="font-bold">Action</h2>
       </div>
-      {expensesList.map((expenses, index) => (
-        <div className="grid grid-cols-4 bg-slate-50 rounded-bl-xl rounded-br-xl p-2">
-          <h2>{expenses.name}</h2>
-          <h2>{expenses.amount}</h2>
-          <h2>{expenses.createdAt}</h2>
+      {expensesList.map((expense) => (
+        <div 
+          key={expense.id} // Added unique key prop here
+          className="grid grid-cols-4 bg-slate-50 rounded-bl-xl rounded-br-xl p-2"
+        >
+          <h2>{expense.name}</h2>
+          <h2>{expense.amount}</h2>
+          <h2>{expense.createdAt}</h2>
           <h2
-            onClick={() => deleteExpense(expenses)}
+            onClick={() => deleteExpense(expense)}
             className="text-red-500 cursor-pointer"
           >
             Delete
           </h2>
-          {/* <h2>
-            <Trash
-              className="text-red-500 cursor-pointer"
-              onClick={() => deleteExpense(expenses)}
-            />
-          </h2> */}
         </div>
       ))}
     </div>
