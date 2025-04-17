@@ -12,7 +12,7 @@ const getFinancialAdvice = async (totalBudget, totalIncome, totalSpend) => {
       - Total Budget: ${totalBudget} (Indian Rupees) 
       - Expenses: ${totalSpend} (Indian Rupees) 
       - Incomes: ${totalIncome} (Indian Rupees)
-      Provide detailed financial advice in 2 sentences to help the user manage their finances more effectively.
+      Provide detailed financial advice in 3 sentences to help the user manage their finances more effectively.
       Be concise yet insightful, focusing on practical recommendations.
     `;
 
