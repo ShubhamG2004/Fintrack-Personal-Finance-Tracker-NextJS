@@ -28,9 +28,17 @@ function Header() {
                 </Link>
 
                 {isSignedIn ? (
-                    <div className='flex items-center gap-4'>
+                    <div className='flex items-center gap-3'>
                         <Link href='/dashboard'>
-                            <Button variant="ghost" className='text-blue-600 hover:bg-blue-50'>
+                            <Button 
+                                variant="ghost" 
+                                className='
+                                    text-blue-600 hover:bg-blue-50 
+                                    border border-transparent hover:border-blue-100
+                                    px-4 py-2 rounded-lg transition-all
+                                    hover:shadow-sm
+                                '
+                            >
                                 Dashboard
                             </Button>
                         </Link>
@@ -38,7 +46,9 @@ function Header() {
                             afterSignOutUrl="/"
                             appearance={{
                                 elements: {
-                                    avatarBox: "w-10 h-10 border-2 border-blue-100",
+                                    avatarBox: "w-10 h-10 border-2 border-blue-100 shadow-sm",
+                                    userButtonPopoverCard: "shadow-xl rounded-xl border border-gray-100",
+                                    userButtonTrigger: "focus:shadow-md focus:ring-2 focus:ring-blue-200"
                                 }
                             }}
                         />
@@ -46,12 +56,27 @@ function Header() {
                 ) : (
                     <div className='flex gap-3 items-center'>
                         <Link href='/sign-in'>
-                            <Button variant="outline" className="rounded-full border-blue-300 text-blue-600 hover:text-blue-700 hover:border-blue-400 transition-colors">
+                            <Button 
+                                variant="outline" 
+                                className="
+                                    rounded-full border-blue-300 text-blue-600 
+                                    hover:text-blue-700 hover:border-blue-400 
+                                    px-5 py-2 border-2 transition-all
+                                    hover:shadow-sm focus:ring-2 focus:ring-blue-200
+                                    focus:border-blue-400
+                                "
+                            >
                                 Sign In
                             </Button>
                         </Link>
                         <Link href='/sign-up'>
-                            <Button className="rounded-full bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white shadow-md hover:shadow-lg transition-all">
+                            <Button className="
+                                rounded-full bg-gradient-to-r from-blue-600 to-blue-500 
+                                hover:from-blue-700 hover:to-blue-600 text-white 
+                                shadow-md hover:shadow-lg transition-all
+                                px-6 py-2 border-2 border-blue-500/10
+                                focus:ring-2 focus:ring-blue-300 focus:ring-offset-2
+                            ">
                                 Get Started
                             </Button>
                         </Link>
