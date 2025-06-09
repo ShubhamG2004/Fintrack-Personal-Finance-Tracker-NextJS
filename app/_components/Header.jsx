@@ -29,15 +29,17 @@ function Header() {
 
                 {isSignedIn ? (
                     <div className='flex items-center gap-3'>
-                        <Link href='/dashboard'>
+                        <Link href="/dashboard">
                             <Button 
-                                variant="ghost" 
-                                className='
-                                    text-blue-600 hover:bg-blue-50 
-                                    border border-transparent hover:border-blue-100
-                                    px-4 py-2 rounded-lg transition-all
-                                    hover:shadow-sm
-                                '
+                                variant="ghost"
+                                className="
+                                px-5 py-2 bg-blue-600 text-white 
+                                hover:bg-white hover:text-blue-600 
+                                hover:border-blue-600 border-2 border-transparent
+                                focus:outline-none focus:ring-2 focus:ring-blue-300 
+                                transition-all duration-200 font-medium tracking-wide 
+                                uppercase shadow-sm hover:shadow-md focus:shadow-lg rounded-full
+                                "
                             >
                                 Dashboard
                             </Button>
