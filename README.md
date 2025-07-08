@@ -1,36 +1,102 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 💸 FinTrack – AI-Powered Expense & Income Tracker
 
-## Getting Started
+FinTrack is a cross-platform personal finance tracking system designed to help users **monitor expenses and income**, **set monthly budgets**, and **gain AI-powered insights** for better financial decision-making. Built using modern web technologies, FinTrack offers a responsive and secure user experience with smart categorization, budget alerts, and report export capabilities.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🎯 Project Objective
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+To build an AI-powered, cross-platform expense and income tracking system that helps users monitor spending, set budgets, analyze trends, and make smarter financial decisions.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 📦 System Components
 
-## Learn More
+### 🔹 Frontend (Client Layer)
+**Built With:** `Next.js`, `React.js`, `Tailwind CSS`
 
-To learn more about Next.js, take a look at the following resources:
+**Responsibilities:**
+- User login/signup and authentication UI
+- Dashboard to view expense/income charts
+- Forms to add/view/edit transactions
+- Budget setting and tracking interface
+- Export report settings
+- Responsive design (Desktop, Tablet, Mobile)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 🔹 Backend (API & Business Logic)
+**Built With:** `Node.js`, `Express.js`
 
-## Deploy on Vercel
+**Responsibilities:**
+- Handle REST API requests
+- Process business logic (e.g., budget validation)
+- Communicate with PostgreSQL DB
+- Route user data to AI service for categorization
+- Session handling, token verification, auth control
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 🔹 AI Service Layer (Smart Categorization)
+**Powered By:** `Google Gemini API` or `OpenAI API`
+
+**Responsibilities:**
+- Analyze transaction descriptions (e.g., "Uber trip")
+- Automatically assign categories (e.g., Travel, Food)
+- Suggest financial improvements (future scope)
+
+---
+
+### 🔹 Database Layer
+**Database Used:** `PostgreSQL` (via Supabase, Neon, or ElephantSQL)
+
+**Schema Overview:**
+- `Users`: User profile and auth info
+- `Transactions`: All expense/income entries
+- `Budgets`: Monthly limits per category
+- `Reports`: Exported file history
+
+---
+
+### 🔹 Export & Reporting Engine
+**Tech Stack:** `jsPDF`, `SheetJS`
+
+**Responsibilities:**
+- Generate monthly/yearly PDF & Excel reports
+- Include visual summaries and charts
+- Allow direct download or cloud file delivery
+
+---
+
+### 🔹 Authentication & Access Control
+**Built With:** `Clerk` or `Auth0`
+
+**Features:**
+- Secure login/signup
+- Email & password authentication
+- Role-based access control (Admin/User)
+- JWT & session token management
+
+---
+
+### 🔹 Cloud Hosting & Storage
+**Tools Used:** `Vercel`, `Firebase Storage`, `AWS S3`, `Render`
+
+**Responsibilities:**
+- Host frontend and backend separately
+- Store generated reports securely
+- Ensure high uptime and fast deployment
+
+---
+
+## 📊 System Workflow
+
+```plaintext
+1. User logs in via Clerk/Auth0
+2. On dashboard, user adds a new transaction
+3. Description sent to AI → categorized automatically
+4. Backend saves transaction with AI category
+5. Dashboard updates summaries and graphs
+6. Budget data is checked for limit violations
+7. Alerts generated if overspending occurs
+8. User exports data to PDF/Excel → stored/downloaded
