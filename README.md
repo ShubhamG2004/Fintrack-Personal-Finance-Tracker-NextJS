@@ -38,7 +38,7 @@ To build an AI-powered, cross-platform expense and income tracking system that h
 ---
 
 ### 🔹 AI Service Layer (Smart Categorization)
-**Powered By:** `Google Gemini API` or `OpenAI API`
+**Powered By:** `Google Gemini API` 
 
 **Responsibilities:**
 - Analyze transaction descriptions (e.g., "Uber trip")
@@ -48,7 +48,7 @@ To build an AI-powered, cross-platform expense and income tracking system that h
 ---
 
 ### 🔹 Database Layer
-**Database Used:** `PostgreSQL` (via Supabase, Neon, or ElephantSQL)
+**Database Used:** `PostgreSQL` (viaNeon)
 
 **Schema Overview:**
 - `Users`: User profile and auth info
@@ -69,7 +69,7 @@ To build an AI-powered, cross-platform expense and income tracking system that h
 ---
 
 ### 🔹 Authentication & Access Control
-**Built With:** `Clerk` or `Auth0`
+**Built With:** `Clerk`
 
 **Features:**
 - Secure login/signup
@@ -80,7 +80,7 @@ To build an AI-powered, cross-platform expense and income tracking system that h
 ---
 
 ### 🔹 Cloud Hosting & Storage
-**Tools Used:** `Vercel`, `Firebase Storage`, `AWS S3`, `Render`
+**Tools Used:** `Vercel`
 
 **Responsibilities:**
 - Host frontend and backend separately
