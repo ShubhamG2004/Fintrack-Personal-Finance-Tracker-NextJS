@@ -1,91 +1,140 @@
-# 💸 FinTrack – AI-Powered Expense & Income Tracker
+# 💸 FinTrack - AI-Powered Personal Finance Tracker
 
-FinTrack is a cross-platform personal finance tracking system designed to help users **monitor expenses and income**, **set monthly budgets**, and **gain AI-powered insights** for better financial decision-making. Built using modern web technologies, FinTrack offers a responsive and secure user experience with smart categorization, budget alerts, and report export capabilities.
+[![Next.js](https://img.shields.io/badge/Next.js-15.2.4-black?style=flat-square&logo=next.js)](https://nextjs.org/)
+[![React](https://img.shields.io/badge/React-19.0.0-blue?style=flat-square&logo=react)](https://reactjs.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4.17-38B2AC?style=flat-square&logo=tailwind-css)](https://tailwindcss.com/)
+[![Clerk](https://img.shields.io/badge/Clerk-Auth-purple?style=flat-square)](https://clerk.dev/)
+[![Neon](https://img.shields.io/badge/Neon-PostgreSQL-green?style=flat-square)](https://neon.tech/)
 
----
+A modern, AI-powered personal finance tracker that helps you monitor expenses, manage budgets, and make smarter financial decisions. Built with Next.js and enhanced with Google's Gemini AI for intelligent transaction categorization.
 
-## 🎯 Project Objective
+![FinTrack Preview](./public/assets/preview.png)
 
-To build an AI-powered, cross-platform expense and income tracking system that helps users monitor spending, set budgets, analyze trends, and make smarter financial decisions.
+## ✨ Features
 
----
+- 🤖 **AI-Powered Categorization** - Automatic transaction categorization using Google Gemini AI
+- 📊 **Interactive Dashboard** - Beautiful charts and visualizations with Recharts
+- 💰 **Budget Management** - Set and track monthly budgets with smart alerts
+- 💸 **Expense Tracking** - Easy expense and income management
+- 🔐 **Secure Authentication** - Powered by Clerk with multiple sign-in options
+- 📱 **Responsive Design** - Works seamlessly on desktop, tablet, and mobile
+- 🎨 **Modern UI** - Clean interface built with Tailwind CSS and Radix UI
+- ⚡ **Real-time Updates** - Live data synchronization with SWR
 
-## 📦 System Components
+## � Quick Start
 
-### 🔹 Frontend (Client Layer)
-**Built With:** `Next.js`, `React.js`, `Tailwind CSS`
+### Prerequisites
 
-**Responsibilities:**
-- User login/signup and authentication UI
-- Dashboard to view expense/income charts
-- Forms to add/view/edit transactions
-- Budget setting and tracking interface
-- Export report settings
-- Responsive design (Desktop, Tablet, Mobile)
+- Node.js 18+ and npm/yarn
+- A Neon PostgreSQL database
+- Clerk account for authentication
+- Google AI API key for Gemini integration
 
----
+### Installation
 
-### 🔹 Backend (API & Business Logic)
-**Built With:** `Node.js`, `Express.js`
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/ShubhamG2004/fintrack.git
+   cd fintrack
+   ```
 
-**Responsibilities:**
-- Handle REST API requests
-- Process business logic (e.g., budget validation)
-- Communicate with PostgreSQL DB
-- Route user data to AI service for categorization
-- Session handling, token verification, auth control
+2. **Install dependencies**
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
 
----
+3. **Set up environment variables**
+   
+   Create a `.env.local` file in the root directory:
+   ```env
+   # Database
+   NEXT_PUBLIC_DATABASE_URL=your_neon_database_url
+   
+   # Clerk Authentication
+   NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key
+   CLERK_SECRET_KEY=your_clerk_secret_key
+   NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
+   NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
+   
+   # Google AI
+   NEXT_PUBLIC_GEMINI_API_KEY=your_gemini_api_key
+   ```
 
-### 🔹 AI Service Layer (Smart Categorization)
-**Powered By:** `Google Gemini API` 
+4. **Set up the database**
+   ```bash
+   npm run db:push
+   ```
 
-**Responsibilities:**
-- Analyze transaction descriptions (e.g., "Uber trip")
-- Automatically assign categories (e.g., Travel, Food)
-- Suggest financial improvements (future scope)
+5. **Run the development server**
+   ```bash
+   npm run dev
+   ```
 
----
+6. **Open your browser**
+   
+   Navigate to [http://localhost:3000](http://localhost:3000)
 
-### 🔹 Database Layer
-**Database Used:** `PostgreSQL` (viaNeon)
+## 🏗️ Project Structure
 
-**Schema Overview:**
-- `Users`: User profile and auth info
-- `Transactions`: All expense/income entries
-- `Budgets`: Monthly limits per category
-- `Reports`: Exported file history
+```
+fintrack/
+├── app/                          # Next.js App Router
+│   ├── (auth)/                   # Authentication routes
+│   │   ├── sign-in/
+│   │   └── sign-up/
+│   ├── (routes)/                 # Protected routes
+│   │   └── dashboard/            # Main dashboard
+│   │       ├── budgets/          # Budget management
+│   │       ├── expenses/         # Expense tracking
+│   │       ├── incomes/          # Income management
+│   │       └── upgrade/          # Premium features
+│   ├── _components/              # Shared components
+│   ├── globals.css               # Global styles
+│   ├── layout.js                 # Root layout
+│   └── page.js                   # Landing page
+├── components/                   # Reusable UI components
+│   └── ui/                       # Shadcn/ui components
+├── lib/                          # Utility libraries
+├── utils/                        # Helper functions
+│   ├── dbConfig.jsx              # Database configuration
+│   ├── schema.jsx                # Database schema
+│   ├── getFinancialAdvice.js     # AI integration
+│   └── formatNumber.js           # Number formatting
+├── public/                       # Static assets
+└── package.json                  # Dependencies
+```
 
----
+## 🛠️ Tech Stack
 
-### 🔹 Export & Reporting Engine
-**Tech Stack:** `jsPDF`, `SheetJS`
+### Frontend
 
-**Responsibilities:**
-- Generate monthly/yearly PDF & Excel reports
-- Include visual summaries and charts
-- Allow direct download or cloud file delivery
+- **Framework**: Next.js 15.2.4 with App Router
+- **UI Library**: React 19.0.0
+- **Styling**: Tailwind CSS with Tailwind Animate
+- **Components**: Radix UI primitives
+- **Icons**: Lucide React
+- **Charts**: Recharts
+- **Animations**: Motion (Framer Motion)
 
----
+### Backend & Database
 
-### 🔹 Authentication & Access Control
-**Built With:** `Clerk`
+- **Database**: PostgreSQL (Neon)
+- **ORM**: Drizzle ORM
+- **Authentication**: Clerk
 
-**Features:**
-- Secure login/signup
-- Email & password authentication
-- Role-based access control (Admin/User)
-- JWT & session token management
+### AI & APIs
 
----
+- **AI Service**: Google Gemini AI
+- **Data Fetching**: SWR
 
-### 🔹 Cloud Hosting & Storage
-**Tools Used:** `Vercel`
+### Development Tools
 
-**Responsibilities:**
-- Host frontend and backend separately
-- Store generated reports securely
-- Ensure high uptime and fast deployment
+- **Language**: JavaScript with JSConfig
+- **Linting**: ESLint
+- **Package Manager**: npm
+- **Build Tool**: Next.js built-in
 
 ---
 
