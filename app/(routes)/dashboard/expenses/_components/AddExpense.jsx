@@ -1,8 +1,9 @@
+import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { db } from "@/utils/dbConfig";
 import { Budgets, Expenses } from "@/utils/schema";
-import { IndianRupee, Loader, PlusCircle } from "lucide-react";
+import { IndianRupee, Loader, PlusCircle, Receipt, Zap } from "lucide-react";
 import moment from "moment";
 import React, { useState } from "react";
 import { toast } from "sonner";
@@ -50,59 +51,111 @@ function AddExpense({ budgetId, user, refreshData }) {
   };
 
   return (
-    <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200 hover:shadow-md transition-all duration-300">
-      <div className="flex items-center gap-2 mb-4">
-        <PlusCircle className="w-5 h-5 text-indigo-600" />
-        <h2 className="font-bold text-lg text-gray-800">Add New Expense</h2>
-      </div>
+    <motion.div 
+      className="bg-white/70 backdrop-blur-lg p-6 rounded-2xl shadow-lg border border-white/20 hover:shadow-2xl transition-all duration-300 overflow-hidden relative"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+      whileHover={{ y: -4, boxShadow: "0 20px 40px rgba(239,68,68,0.15)" }}
+    >
+      {/* Gradient overlay */}
+      <div className="absolute inset-0 bg-gradient-to-br from-orange-50/20 via-white/10 to-red-50/20 opacity-0 hover:opacity-100 transition-opacity duration-300" />
       
-      <div className="space-y-4">
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Expense Name
-          </label>
-          <Input
-            className="focus-visible:ring-indigo-200"
-            placeholder="e.g. Groceries, Dining Out"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-        </div>
+      <div className="relative z-10">
+        <motion.div 
+          className="flex items-center gap-3 mb-6"
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: 0.1 }}
+        >
+          <motion.div 
+            className="p-2 bg-gradient-to-r from-orange-400 to-red-500 rounded-lg shadow-sm"
+            whileHover={{ rotate: 10, scale: 1.1 }}
+            transition={{ duration: 0.2 }}
+          >
+            <PlusCircle className="w-5 h-5 text-white" />
+          </motion.div>
+          <h2 className="font-bold text-lg bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent">
+            Add New Expense
+          </h2>
+        </motion.div>
         
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Expense Amount
-          </label>
-          <div className="relative">
-            <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">
-              <IndianRupee className="w-4 h-4" />
-            </span>
-            <Input
-              type="number"
-              className="pl-8 focus-visible:ring-indigo-200"
-              placeholder="e.g. 1500"
-              value={amount}
-              onChange={(e) => setAmount(e.target.value)}
-            />
+        <motion.div 
+          className="space-y-4"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+        >
+          <div>
+            <label className="text-sm font-medium text-gray-700 mb-2 flex items-center gap-2">
+              <Receipt className="w-4 h-4" />
+              Expense Name
+            </label>
+            <motion.div whileFocus={{ scale: 1.02 }}>
+              <Input
+                className="focus-visible:ring-orange-200 border-orange-200 focus:border-orange-400 transition-colors bg-white/70 backdrop-blur-sm h-11 rounded-xl"
+                placeholder="e.g. Groceries, Dining Out"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+            </motion.div>
           </div>
-        </div>
-      </div>
+          
+          <div>
+            <label className="text-sm font-medium text-gray-700 mb-2 flex items-center gap-2">
+              <Zap className="w-4 h-4" />
+              Expense Amount
+            </label>
+            <motion.div 
+              className="relative"
+              whileFocus={{ scale: 1.02 }}
+            >
+              <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">
+                <IndianRupee className="w-4 h-4" />
+              </span>
+              <Input
+                type="number"
+                className="pl-10 focus-visible:ring-orange-200 border-orange-200 focus:border-orange-400 transition-colors bg-white/70 backdrop-blur-sm h-11 rounded-xl"
+                placeholder="e.g. 1500"
+                value={amount}
+                onChange={(e) => setAmount(e.target.value)}
+              />
+            </motion.div>
+          </div>
+        </motion.div>
 
-      <Button
-        disabled={!name || !amount || loading}
-        onClick={addNewExpense}
-        className="mt-6 w-full h-11 rounded-xl bg-indigo-600 hover:bg-indigo-700 transition-colors disabled:opacity-70 disabled:cursor-not-allowed"
-      >
-        {loading ? (
-          <Loader className="w-4 h-4 animate-spin" />
-        ) : (
-          <span className="flex items-center gap-2">
-            <PlusCircle className="w-4 h-4" />
-            Add Expense
-          </span>
-        )}
-      </Button>
-    </div>
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3 }}
+        >
+          <motion.div
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+          >
+            <Button
+              disabled={!name || !amount || loading}
+              onClick={addNewExpense}
+              className="mt-6 w-full h-12 rounded-xl bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed shadow-lg"
+            >
+              {loading ? (
+                <motion.div
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                >
+                  <Loader className="w-4 h-4" />
+                </motion.div>
+              ) : (
+                <span className="flex items-center gap-2">
+                  <PlusCircle className="w-4 h-4 animate-pulse" />
+                  Add Expense
+                </span>
+              )}
+            </Button>
+          </motion.div>
+        </motion.div>
+      </div>
+    </motion.div>
   );
 }
 
