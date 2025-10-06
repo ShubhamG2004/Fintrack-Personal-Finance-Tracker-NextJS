@@ -7,15 +7,16 @@ import { CheckCircle, DollarSign, PieChart, Shield, TrendingUp, Bell, FileText, 
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
-const router = useRouter();
+function Hero() {
+  const router = useRouter();
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 40 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
-};
+  const fadeUp = {
+    hidden: { opacity: 0, y: 40 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
+  };
 
-return (
-  <div className="min-h-screen bg-gradient-to-b from-gray-100 via-white to-gray-50">
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-gray-100 via-white to-gray-50">
     {/* Hero Section */}
     <section className="container mx-auto px-4 py-10 md:py-20 flex flex-col items-center text-center">
       <motion.div
@@ -266,8 +267,8 @@ return (
         </div>
       </motion.div>
     </footer>
-  </div>
-);
+    </div>
+  );
 }
 
 export default Hero;
