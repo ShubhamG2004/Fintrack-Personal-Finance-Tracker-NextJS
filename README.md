@@ -8,7 +8,6 @@
 
 A modern, AI-powered personal finance tracker that helps you monitor expenses, manage budgets, and make smarter financial decisions. Built with Next.js and enhanced with Google's Gemini AI for intelligent transaction categorization.
 
-![FinTrack Preview](./public/assets/preview.png)
 
 ## ✨ Features
 
@@ -149,3 +148,12 @@ fintrack/
 6. Budget data is checked for limit violations
 7. Alerts generated if overspending occurs
 8. User exports data to PDF/Excel → stored/downloaded
+```
+
+----
+## Pages
+<img width="1366" height="2987" alt="screencapture-fintrack-weld-vercel-app-2025-10-08-22_16_25" src="https://github.com/user-attachments/assets/35bbfce6-3fe4-4b42-804c-7933e89f9ffc" />
+
+<img width="1350" height="643" alt="Screenshot (896)" src="https://github.com/user-attachments/assets/16f16dce-3915-46c9-bcd0-f53e28e32627" />
+
+
