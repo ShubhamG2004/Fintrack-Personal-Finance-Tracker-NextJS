@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1200" height="700" viewBox="0 0 1200 700" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .title { font: bold 22px sans-serif; fill: #111827 }
+    .label { font: 14px sans-serif; fill: #111827 }
+    .box { fill: #ffffff; stroke: #cbd5e1; stroke-width: 2; rx: 8; }
+    .arrow { stroke: #2563eb; stroke-width: 3; marker-end: url(#arrowhead); }
+  </style>
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#2563eb" />
+    </marker>
+  </defs>
+  <rect x="20" y="20" width="1160" height="660" rx="12" fill="#f8fafc" stroke="#e2e8f0"/>
+  <text x="40" y="60" class="title">FinTrack - High-Level Architecture</text>
+
+  <!-- Frontend -->
+  <g transform="translate(80,120)">
+    <rect class="box" width="220" height="120"/>
+    <text x="20" y="30" class="label">Frontend (Next.js + React)</text>
+    <text x="20" y="55" class="label">UI, Charts, Auth (Clerk)</text>
+  </g>
+
+  <!-- API -->
+  <g transform="translate(420,120)">
+    <rect class="box" width="260" height="120"/>
+    <text x="20" y="30" class="label">Server / API (Next.js)</text>
+    <text x="20" y="55" class="label">Endpoints, Business Logic, ORM</text>
+  </g>
+
+  <!-- AI -->
+  <g transform="translate(760,80)">
+    <rect class="box" width="300" height="80"/>
+    <text x="16" y="30" class="label">AI Service (Google Gemini)</text>
+  </g>
+
+  <!-- DB -->
+  <g transform="translate(420,300)">
+    <rect class="box" width="320" height="120"/>
+    <text x="20" y="30" class="label">Database (Neon/Postgres)</text>
+    <text x="20" y="55" class="label">Drizzle ORM, Schemas</text>
+  </g>
+
+  <!-- Arrows -->
+  <line x1="300" y1="180" x2="420" y2="180" class="arrow" />
+  <line x1="680" y1="180" x2="760" y2="120" class="arrow" />
+  <line x1="560" y1="240" x2="560" y2="300" class="arrow" />
+
+  <!-- Legend -->
+  <text x="40" y="620" class="label">Notes:</text>
+  <text x="40" y="640" class="label">- Frontend sends transaction descriptions to AI for categorization.</text>
+  <text x="40" y="660" class="label">- Server persists categorized transactions to the database and returns data to the frontend.</text>
+</svg>

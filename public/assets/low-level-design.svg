@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1200" height="900" viewBox="0 0 1200 900" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .title { font: bold 22px sans-serif; fill: #0f172a }
+    .label { font: 13px sans-serif; fill: #0f172a }
+    .box { fill: #ffffff; stroke: #e6edf3; stroke-width: 1.5; rx: 8; }
+    .small { font: 11px sans-serif; fill: #475569 }
+    .arrow { stroke: #0ea5e9; stroke-width: 2.5; marker-end: url(#arrowhead); }
+  </style>
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#0ea5e9" />
+    </marker>
+  </defs>
+  <rect x="12" y="12" width="1176" height="876" rx="12" fill="#f8fafc" stroke="#e2e8f0"/>
+  <text x="36" y="54" class="title">FinTrack - Low-Level Component Diagram</text>
+
+  <!-- Client Components -->
+  <g transform="translate(40,110)">
+    <rect class="box" width="320" height="140"/>
+    <text x="16" y="28" class="label">Client</text>
+    <text x="16" y="52" class="small">- Pages: Dashboard, Budgets, Expenses, Incomes</text>
+    <text x="16" y="72" class="small">- Components: SideNav, Header, Charts, Forms</text>
+    <text x="16" y="92" class="small">- Auth: Clerk session handling</text>
+  </g>
+
+  <!-- API Layer -->
+  <g transform="translate(420,110)">
+    <rect class="box" width="360" height="180"/>
+    <text x="20" y="30" class="label">API / Server</text>
+    <text x="20" y="54" class="small">- Routes (app/(routes)/dashboard/...)</text>
+    <text x="20" y="72" class="small">- Controllers: createTransaction, getTransactions</text>
+    <text x="20" y="90" class="small">- Services: categorization, budget-checks</text>
+    <text x="20" y="108" class="small">- Caching: SWR</text>
+  </g>
+
+  <!-- AI -->
+  <g transform="translate(820,110)">
+    <rect class="box" width="300" height="100"/>
+    <text x="16" y="30" class="label">AI Integration</text>
+    <text x="16" y="54" class="small">- Google Gemini API client</text>
+    <text x="16" y="72" class="small">- categorizeTransaction(text) → category</text>
+  </g>
+
+  <!-- DB/ORM -->
+  <g transform="translate(420,340)">
+    <rect class="box" width="360" height="160"/>
+    <text x="20" y="30" class="label">Database & ORM</text>
+    <text x="20" y="54" class="small">- Neon PostgreSQL</text>
+    <text x="20" y="72" class="small">- Drizzle ORM: schema, migrations</text>
+    <text x="20" y="90" class="small">- Tables: users, transactions, budgets</text>
+  </g>
+
+  <!-- Arrows -->
+  <line x1="360" y1="180" x2="420" y2="180" class="arrow" />
+  <line x1="780" y1="160" x2="820" y2="160" class="arrow" />
+  <line x1="600" y1="260" x2="600" y2="340" class="arrow" />
+
+  <!-- Sequence notes -->
+  <text x="40" y="560" class="label">Sequence Example:</text>
+  <text x="40" y="584" class="small">1. User submits transaction form → Client validates input.</text>
+  <text x="40" y="604" class="small">2. Client POST /api/transactions → Server creates transaction with status="pending".</text>
+  <text x="40" y="624" class="small">3. Server calls Gemini API to classify → updates transaction with category.</text>
+  <text x="40" y="644" class="small">4. Server persists transaction via Drizzle → DB stored and SWR cache mutated.</text>
+</svg>

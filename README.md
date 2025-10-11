@@ -151,9 +151,29 @@ fintrack/
 ```
 
 ----
-## Pages
-<img width="1366" height="2987" alt="screencapture-fintrack-weld-vercel-app-2025-10-08-22_16_25" src="https://github.com/user-attachments/assets/35bbfce6-3fe4-4b42-804c-7933e89f9ffc" />
+## 🖼️ Architecture Diagrams
 
-<img width="1350" height="643" alt="Screenshot (896)" src="https://github.com/user-attachments/assets/16f16dce-3915-46c9-bcd0-f53e28e32627" />
+### High-Level Design
+
+This diagram shows the overall system architecture: the Next.js frontend, the server/API layer, Google Gemini AI for categorization, and the Neon/Postgres database.
+
+![High-Level Architecture](./public/assets/high-level-design.svg)
+
+*Notes: Frontend sends transaction text to the server which may call the AI service for automatic categorization. Server persists transactions to the database (Neon) via Drizzle ORM and returns data to the client.*
+
+### Low-Level Design
+
+This diagram drills into the main components and data flow: client pages and components, API routes and controllers, AI integration client, and database tables/migrations.
+
+![Low-Level Component Diagram](./public/assets/low-level-design.svg)
+
+*Notes: Example sequence — client submits a transaction, server records it as pending, calls Gemini to classify, updates the transaction with the category, persists via Drizzle, and updates SWR cache.*
+
+
+## Pages
+
+![FinTrack Preview](https://github.com/user-attachments/assets/35bbfce6-3fe4-4b42-804c-7933e89f9ffc)
+
+![Screenshot (896)](https://github.com/user-attachments/assets/16f16dce-3915-46c9-bcd0-f53e28e32627)
 
 
