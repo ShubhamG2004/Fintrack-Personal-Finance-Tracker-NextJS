@@ -1,8 +1,6 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { db } from "@/utils/dbConfig";
-import { Budgets, Expenses } from "@/utils/schema";
 import { IndianRupee, Loader, PlusCircle, Receipt, Zap } from "lucide-react";
 import moment from "moment";
 import React, { useState } from "react";
@@ -18,20 +16,29 @@ function AddExpense({ budgetId, user, refreshData }) {
     
     setLoading(true);
     try {
-      const result = await db
-        .insert(Expenses)
-        .values({
-          name: name,
+      const response = await fetch("/api/transactions", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name,
           amount: parseFloat(amount),
-          budgetId: budgetId,
+          budgetId,
           createdAt: moment().format("DD/MM/yyyy"),
           createdBy: user?.primaryEmailAddress?.emailAddress,
-        })
-        .returning({ insertedId: Budgets.id });
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to create transaction");
+      }
+
+      const result = await response.json();
 
       if (result) {
+        const alertSuffix = result.isAnomaly ? " (flagged for review)" : "";
+
         toast.success("Expense Added Successfully", {
-          description: `${name} - ₹${amount} added`,
+          description: `${name} - ₹${amount} added${alertSuffix}`,
           action: {
             label: "Dismiss",
             onClick: () => {},
