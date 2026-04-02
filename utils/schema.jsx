@@ -25,6 +25,8 @@ import {
     id: serial("id").primaryKey(),
     name: varchar("name").notNull(),
     amount: numeric("amount").notNull().default(0),
+    category: varchar("category").default("General"),
     budgetId: integer("budgetId").references(() => Budgets.id),
+    userId: varchar("userId").notNull(),
     createdAt: varchar("createdAt").notNull(),
   });

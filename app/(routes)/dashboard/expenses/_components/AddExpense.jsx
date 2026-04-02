@@ -23,8 +23,9 @@ function AddExpense({ budgetId, user, refreshData }) {
           name,
           amount: parseFloat(amount),
           budgetId,
+          category: "General",
           createdAt: moment().format("DD/MM/yyyy"),
-          createdBy: user?.primaryEmailAddress?.emailAddress,
+          userId: user?.primaryEmailAddress?.emailAddress,
         }),
       });
 
@@ -44,6 +45,15 @@ function AddExpense({ budgetId, user, refreshData }) {
             onClick: () => {},
           },
         });
+
+        if (result?.anomaly?.isAnomaly) {
+          toast.warning("Anomaly detected", {
+            description: `${result.anomaly.reason} (confidence ${Math.round(
+              result.anomaly.confidence * 100
+            )}%)`,
+          });
+        }
+
         refreshData();
         setName("");
         setAmount("");

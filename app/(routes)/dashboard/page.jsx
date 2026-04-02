@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { UserButton, useUser } from "@clerk/nextjs";
 import CardInfo from "./_components/CardInfo";
 import { db } from "@/utils/dbConfig";
@@ -8,6 +8,9 @@ import { Budgets, Expenses, Incomes } from "@/utils/schema";
 import BarChartDashboard from "./_components/BarChartDashboard";
 import BudgetItem from "./budgets/_components/BudgetItem";
 import ExpenseListTable from "./expenses/_components/ExpenseListTable";
+import AlertBanner from "@/components/dashboard/AlertBanner";
+import AlertPanel from "@/components/dashboard/AlertPanel";
+import ExpenseChart from "@/components/dashboard/ExpenseChart";
 
 function Dashboard() {
   const { user } = useUser();
@@ -15,10 +18,112 @@ function Dashboard() {
   const [budgetList, setBudgetList] = useState([]);
   const [incomeList, setIncomeList] = useState([]);
   const [expensesList, setExpensesList] = useState([]);
+  const [alerts, setAlerts] = useState([]);
+
+  const anomalyExpenses = expensesList.filter(
+    (expense) => Number(expense?.amount) > 10000
+  );
+
+  const categoryData = useMemo(() => {
+    const grouped = expensesList.reduce((acc, expense) => {
+      const category = expense?.category || "General";
+      const amount = Number(expense?.amount || 0);
+
+      if (!acc[category]) {
+        acc[category] = 0;
+      }
+
+      acc[category] += amount;
+      return acc;
+    }, {});
+
+    return Object.entries(grouped)
+      .map(([category, amount]) => ({
+        category,
+        amount: Number(amount.toFixed(2)),
+      }))
+      .sort((a, b) => b.amount - a.amount)
+      .slice(0, 6);
+  }, [expensesList]);
+
+  const monthlyTrend = useMemo(() => {
+    const grouped = expensesList.reduce((acc, expense) => {
+      if (!expense?.createdAt) return acc;
+
+      const [day, month, year] = String(expense.createdAt)
+        .split("/")
+        .map(Number);
+
+      if (!day || !month || !year) return acc;
+
+      const key = `${year}-${String(month).padStart(2, "0")}`;
+      const amount = Number(expense?.amount || 0);
+
+      if (!acc[key]) {
+        acc[key] = 0;
+      }
+
+      acc[key] += amount;
+      return acc;
+    }, {});
+
+    return Object.entries(grouped)
+      .map(([month, total]) => ({
+        month,
+        total: Number(total.toFixed(2)),
+      }))
+      .sort((a, b) => a.month.localeCompare(b.month));
+  }, [expensesList]);
+
+  const spendingInsight = useMemo(() => {
+    if (monthlyTrend.length < 2) {
+      return "Add data across two months to generate a spending trend insight.";
+    }
+
+    const current = monthlyTrend[monthlyTrend.length - 1].total;
+    const previous = monthlyTrend[monthlyTrend.length - 2].total;
+
+    if (!previous) {
+      return "Previous month baseline is zero, trend insight unavailable.";
+    }
+
+    const delta = ((current - previous) / previous) * 100;
+    const direction = delta >= 0 ? "more" : "less";
+
+    return `You spent ${Math.abs(delta).toFixed(1)}% ${direction} than last month.`;
+  }, [monthlyTrend]);
 
   useEffect(() => {
-    user && getBudgetList();
+    if (!user) return;
+
+    getBudgetList();
+    loadAlerts();
+
+    const intervalId = setInterval(() => {
+      loadAlerts();
+    }, 10000);
+
+    return () => clearInterval(intervalId);
   }, [user]);
+
+  const loadAlerts = async () => {
+    try {
+      const userId = user?.primaryEmailAddress?.emailAddress;
+      if (!userId) return;
+
+      const response = await fetch(
+        `/api/alerts?userId=${encodeURIComponent(userId)}&limit=8`,
+        { cache: "no-store" }
+      );
+
+      if (!response.ok) return;
+
+      const data = await response.json();
+      setAlerts(data);
+    } catch (error) {
+      console.error("Failed to load alert history", error);
+    }
+  };
 
   /**
    * Used to get budget List
@@ -72,6 +177,7 @@ function Dashboard() {
         name: Expenses.name,
         amount: Expenses.amount,
         createdAt: Expenses.createdAt,
+        category: Budgets.name,
       })
       .from(Budgets)
       .rightJoin(Expenses, eq(Budgets.id, Expenses.budgetId))
@@ -95,9 +201,18 @@ function Dashboard() {
 
       <CardInfo budgetList={budgetList} incomeList={incomeList} />
 
+      {anomalyExpenses.length > 0 && (
+        <div className="mt-6">
+          <AlertBanner
+            message={`${anomalyExpenses.length} high-value transaction(s) need review. ${spendingInsight}`}
+          />
+        </div>
+      )}
+
       <div className="grid grid-cols-1 lg:grid-cols-3 mt-6 gap-5">
         <div className="lg:col-span-2 space-y-5">
           <BarChartDashboard budgetList={budgetList} />
+          <ExpenseChart data={categoryData} />
           <ExpenseListTable
             expensesList={expensesList}
             refreshData={getBudgetList}
@@ -105,6 +220,7 @@ function Dashboard() {
         </div>
         
         <div className="space-y-5">
+          <AlertPanel alerts={alerts} />
           <h2 className="font-bold text-lg">Latest Budgets</h2>
           {budgetList?.length > 0 ? (
             budgetList.map((budget, index) => (
