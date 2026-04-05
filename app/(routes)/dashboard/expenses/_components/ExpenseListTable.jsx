@@ -48,8 +48,6 @@ function ExpenseListTable({ expensesList, refreshData, loading, emptyTitle, empt
       description: `${expense.name} has been removed`,
       icon: "🗑️",
     });
-
-    refreshData?.();
   };
 
   const formatDate = (dateString) => {
