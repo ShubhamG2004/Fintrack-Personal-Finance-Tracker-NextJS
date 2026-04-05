@@ -1,14 +1,33 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { IndianRupee, Loader, PlusCircle, Receipt, Zap } from "lucide-react";
+import {
+  CalendarDays,
+  IndianRupee,
+  Loader,
+  PlusCircle,
+  Receipt,
+  Repeat2,
+  Tag,
+  Zap,
+} from "lucide-react";
 import moment from "moment";
 import React, { useState } from "react";
 import { toast } from "sonner";
 
+const recurrenceOptions = [
+  { label: "Weekly", value: "weekly" },
+  { label: "Biweekly", value: "biweekly" },
+  { label: "Monthly", value: "monthly" },
+  { label: "Yearly", value: "yearly" },
+];
+
 function AddExpense({ budgetId, user, refreshData }) {
   const [name, setName] = useState("");
   const [amount, setAmount] = useState("");
+  const [category, setCategory] = useState("General");
+  const [isRecurring, setIsRecurring] = useState(false);
+  const [recurrence, setRecurrence] = useState("monthly");
   const [loading, setLoading] = useState(false);
 
   const addNewExpense = async () => {
@@ -23,9 +42,11 @@ function AddExpense({ budgetId, user, refreshData }) {
           name,
           amount: parseFloat(amount),
           budgetId,
-          category: "General",
-          createdAt: moment().format("DD/MM/yyyy"),
+          category: category.trim() || "General",
+          createdAt: moment().format("YYYY-MM-DD"),
           userId: user?.primaryEmailAddress?.emailAddress,
+          isRecurring,
+          recurrence: isRecurring ? recurrence : "one-time",
         }),
       });
 
@@ -57,6 +78,9 @@ function AddExpense({ budgetId, user, refreshData }) {
         refreshData();
         setName("");
         setAmount("");
+        setCategory("General");
+        setIsRecurring(false);
+        setRecurrence("monthly");
       }
     } catch (error) {
       toast.error("Failed to add expense", {
@@ -117,6 +141,21 @@ function AddExpense({ budgetId, user, refreshData }) {
               />
             </motion.div>
           </div>
+
+          <div>
+            <label className="text-sm font-medium text-gray-700 mb-2 flex items-center gap-2">
+              <Tag className="w-4 h-4" />
+              Category
+            </label>
+            <motion.div whileFocus={{ scale: 1.02 }}>
+              <Input
+                className="focus-visible:ring-orange-200 border-orange-200 focus:border-orange-400 transition-colors bg-white/70 backdrop-blur-sm h-11 rounded-xl"
+                placeholder="e.g. Groceries, Travel, Utilities"
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
+              />
+            </motion.div>
+          </div>
           
           <div>
             <label className="text-sm font-medium text-gray-700 mb-2 flex items-center gap-2">
@@ -138,6 +177,53 @@ function AddExpense({ budgetId, user, refreshData }) {
                 onChange={(e) => setAmount(e.target.value)}
               />
             </motion.div>
+          </div>
+
+          <div className="rounded-2xl border border-orange-100 bg-gradient-to-br from-orange-50/80 to-red-50/60 p-4">
+            <div className="flex items-center justify-between gap-3">
+              <div>
+                <p className="font-semibold text-gray-800 flex items-center gap-2">
+                  <Repeat2 className="w-4 h-4 text-orange-500" />
+                  Recurring transaction
+                </p>
+                <p className="text-sm text-gray-500 mt-1">
+                  Keep this expense on a schedule for predictable spending.
+                </p>
+              </div>
+              <Button
+                type="button"
+                variant={isRecurring ? "default" : "outline"}
+                className={isRecurring ? "bg-orange-500 hover:bg-orange-600" : "border-orange-200"}
+                onClick={() => setIsRecurring((current) => !current)}
+              >
+                {isRecurring ? "Enabled" : "Disabled"}
+              </Button>
+            </div>
+
+            <div className={`mt-4 ${isRecurring ? "grid" : "opacity-60 pointer-events-none"}`}>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                {recurrenceOptions.map((option) => (
+                  <button
+                    key={option.value}
+                    type="button"
+                    onClick={() => setRecurrence(option.value)}
+                    className={`rounded-xl border px-3 py-2 text-sm font-medium transition-all duration-200 ${
+                      recurrence === option.value
+                        ? "border-orange-500 bg-orange-500 text-white shadow-md"
+                        : "border-orange-100 bg-white/70 text-gray-600 hover:border-orange-200 hover:text-orange-600"
+                    }`}
+                  >
+                    {option.label}
+                  </button>
+                ))}
+              </div>
+              <p className="mt-3 text-xs text-gray-500 flex items-center gap-1">
+                <CalendarDays className="w-3 h-3" />
+                {isRecurring
+                  ? `Next charge marked as ${recurrence}.`
+                  : "Turn on recurring mode to store a schedule."}
+              </p>
+            </div>
           </div>
         </motion.div>
 
