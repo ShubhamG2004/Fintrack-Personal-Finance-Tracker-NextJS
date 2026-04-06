@@ -30,6 +30,6 @@ import {
     isRecurring: boolean("isRecurring").notNull().default(false),
     recurrence: varchar("recurrence").notNull().default("one-time"),
     budgetId: integer("budgetId").references(() => Budgets.id),
-    userId: varchar("userId").notNull(),
+    userId: varchar("userId").notNull().default(""),
     createdAt: varchar("createdAt").notNull(),
   });
