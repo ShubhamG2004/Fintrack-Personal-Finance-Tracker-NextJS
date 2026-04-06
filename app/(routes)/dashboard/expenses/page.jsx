@@ -21,8 +21,7 @@ function ExpensesScreen() {
   const [sortBy, setSortBy] = useState('newest');
   const { user } = useUser();
 
-  async function getAllExpenses() {
-    setLoading(true);
+  async function fetchExpensesData() {
     const result = await db.select({
       id: Expenses.id,
       name: Expenses.name,
@@ -38,17 +37,43 @@ function ExpensesScreen() {
       .rightJoin(Expenses, eq(Budgets.id, Expenses.budgetId))
       .where(eq(Budgets.createdBy, user?.primaryEmailAddress.emailAddress))
       .orderBy(desc(Expenses.id));
-    
-    setExpensesList(result);
-    
-    // Calculate total expenses
+
     const total = result.reduce((sum, expense) => sum + parseFloat(expense.amount || 0), 0);
+    return { result, total };
+  }
+
+  async function getAllExpenses() {
+    setLoading(true);
+
+    const { result, total } = await fetchExpensesData();
+
+    setExpensesList(result);
     setTotalExpenses(total);
     setLoading(false);
   }
 
   useEffect(() => {
-    user && getAllExpenses();
+    if (!user) return;
+
+    let isActive = true;
+
+    const loadExpenses = async () => {
+      setLoading(true);
+
+      const { result, total } = await fetchExpensesData();
+
+      if (!isActive) return;
+
+      setExpensesList(result);
+      setTotalExpenses(total);
+      setLoading(false);
+    };
+
+    void loadExpenses();
+
+    return () => {
+      isActive = false;
+    };
   }, [user])
 
   const categoryOptions = useMemo(() => {
