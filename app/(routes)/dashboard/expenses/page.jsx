@@ -21,14 +21,7 @@ function ExpensesScreen() {
   const [sortBy, setSortBy] = useState('newest');
   const { user } = useUser();
 
-  useEffect(() => {
-    user && getAllExpenses();
-  }, [user])
-
-  /**
-   * Used to get All expenses belong to users
-   */
-  const getAllExpenses = async () => {
+  async function getAllExpenses() {
     setLoading(true);
     const result = await db.select({
       id: Expenses.id,
@@ -53,6 +46,10 @@ function ExpensesScreen() {
     setTotalExpenses(total);
     setLoading(false);
   }
+
+  useEffect(() => {
+    user && getAllExpenses();
+  }, [user])
 
   const categoryOptions = useMemo(() => {
     const uniqueCategories = new Set(

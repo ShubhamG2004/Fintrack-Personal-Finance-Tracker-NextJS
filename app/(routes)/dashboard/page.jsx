@@ -193,7 +193,7 @@ function Dashboard() {
         <div>
           <h1 className="font-bold text-4xl">Hi, {user?.fullName} 👋</h1>
           <p className="text-gray-500">
-            Here's what's happening with your money. Let's manage your expenses.
+            Here&apos;s what&apos;s happening with your money. Let&apos;s manage your expenses.
           </p>
         </div>
         <UserButton afterSignOutUrl="/" />

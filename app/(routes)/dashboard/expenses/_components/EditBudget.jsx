@@ -1,6 +1,6 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { IndianRupee, PenBox, Sparkles } from "lucide-react";
+import { IndianRupee, Loader2, PenBox, Sparkles } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import {
   Dialog,
@@ -167,8 +167,8 @@ function EditBudget({ budgetInfo, refreshData }) {
             onClick={onUpdateBudget}
             className="flex-1 h-11 rounded-xl bg-indigo-600 hover:bg-indigo-700 transition-colors disabled:opacity-70 disabled:cursor-not-allowed"
           >
-            {loading ? (
-              <Loader className="w-4 h-4 animate-spin" />
+              {loading ? (
+            <Loader2 className="w-4 h-4 animate-spin" />
             ) : (
               "Update Budget"
             )}

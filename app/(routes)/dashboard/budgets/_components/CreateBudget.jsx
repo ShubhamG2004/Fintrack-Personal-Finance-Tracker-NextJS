@@ -25,6 +25,7 @@ function CreateBudget({ refreshData }) {
   const [name, setName] = useState("");
   const [amount, setAmount] = useState("");
   const { user } = useUser();
+  const particleOffsets = [18, 34, 52];
 
   const onCreateBudget = async () => {
     try {
@@ -89,7 +90,7 @@ function CreateBudget({ refreshData }) {
                 className="absolute w-2 h-2 bg-indigo-300 rounded-full opacity-20"
                 animate={{
                   y: [-20, -80],
-                  x: [Math.random() * 50, Math.random() * 50],
+                  x: [particleOffsets[i], particleOffsets[i] + 12],
                   opacity: [0.2, 0, 0.2]
                 }}
                 transition={{

@@ -138,7 +138,7 @@ function ExpensesScreen({ params }) {
                 <AlertDialogHeader>
                   <AlertDialogTitle>Confirm Deletion</AlertDialogTitle>
                   <AlertDialogDescription className="text-gray-600">
-                    This will permanently delete the "{budgetInfo?.name}" budget and all 
+                    This will permanently delete the &quot;{budgetInfo?.name}&quot; budget and all 
                     {budgetInfo?.totalItem} associated expenses. This action cannot be undone.
                   </AlertDialogDescription>
                 </AlertDialogHeader>

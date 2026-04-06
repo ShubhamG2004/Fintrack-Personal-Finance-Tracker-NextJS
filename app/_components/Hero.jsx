@@ -233,7 +233,7 @@ function Hero() {
             <ul className="space-y-2">
               <li><a href="#features" className="transition-colors hover:text-slate-950">Features</a></li>
               <li><a href="#how-it-works" className="transition-colors hover:text-slate-950">How it works</a></li>
-              <li><a href="/sign-up" className="transition-colors hover:text-slate-950">Get started</a></li>
+              <li><Link href="/sign-up" className="transition-colors hover:text-slate-950">Get started</Link></li>
             </ul>
           </div>
           <div>

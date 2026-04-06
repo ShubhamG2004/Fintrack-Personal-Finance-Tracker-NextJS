@@ -11,44 +11,43 @@ import {
 } from "recharts";
 import { ArrowUpRight, TrendingUp } from "lucide-react";
 
-function BarChartDashboard({ budgetList }) {
-  // Custom shape for the bars with rounded corners
-  const CustomBarShape = (props) => {
-    const { fill, x, y, width, height } = props;
-    return (
-      <rect
-        x={x}
-        y={y}
-        width={width}
-        height={height}
-        fill={fill}
-        rx={6} // Border radius
-        ry={6} // Border radius
-      />
-    );
-  };
+const CustomBarShape = (props) => {
+  const { fill, x, y, width, height } = props;
+  return (
+    <rect
+      x={x}
+      y={y}
+      width={width}
+      height={height}
+      fill={fill}
+      rx={6}
+      ry={6}
+    />
+  );
+};
 
-  // Custom tooltip
-  const CustomTooltip = ({ active, payload, label }) => {
-    if (active && payload && payload.length) {
-      return (
-        <div className="bg-white p-4 shadow-lg rounded-lg border border-gray-100">
-          <p className="font-semibold text-gray-800">{label}</p>
-          <div className="flex items-center mt-1">
-            <div className="w-3 h-3 bg-purple-600 rounded-full mr-2"></div>
-            <span className="text-sm text-gray-600">Spent: </span>
-            <span className="text-sm font-medium ml-1">₹{payload[0].value}</span>
-          </div>
-          <div className="flex items-center mt-1">
-            <div className="w-3 h-3 bg-purple-300 rounded-full mr-2"></div>
-            <span className="text-sm text-gray-600">Budget: </span>
-            <span className="text-sm font-medium ml-1">₹{payload[1].value}</span>
-          </div>
+const CustomTooltip = ({ active, payload, label }) => {
+  if (active && payload && payload.length) {
+    return (
+      <div className="rounded-lg border border-gray-100 bg-white p-4 shadow-lg">
+        <p className="font-semibold text-gray-800">{label}</p>
+        <div className="mt-1 flex items-center">
+          <div className="mr-2 h-3 w-3 rounded-full bg-purple-600"></div>
+          <span className="text-sm text-gray-600">Spent: </span>
+          <span className="ml-1 text-sm font-medium">₹{payload[0].value}</span>
         </div>
-      );
-    }
-    return null;
-  };
+        <div className="mt-1 flex items-center">
+          <div className="mr-2 h-3 w-3 rounded-full bg-purple-300"></div>
+          <span className="text-sm text-gray-600">Budget: </span>
+          <span className="ml-1 text-sm font-medium">₹{payload[1].value}</span>
+        </div>
+      </div>
+    );
+  }
+  return null;
+};
+
+function BarChartDashboard({ budgetList }) {
 
   return (
     <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-all duration-300">
