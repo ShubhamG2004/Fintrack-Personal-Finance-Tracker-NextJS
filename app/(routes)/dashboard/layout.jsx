@@ -42,20 +42,20 @@ function DashboardLayout({ children }) {
 
     if (!isLoaded || isLoading) {
         return (
-            <div className="flex flex-col items-center justify-center h-screen gap-4">
-                <Loader2 className="w-10 h-10 animate-spin text-blue-600" />
-                <p className="text-gray-600">Loading your dashboard...</p>
+            <div className="flex min-h-screen flex-col items-center justify-center gap-4 bg-slate-50">
+                <Loader2 className="h-10 w-10 animate-spin text-blue-600" />
+                <p className="text-sm text-slate-600">Loading your dashboard...</p>
             </div>
         )
     }
 
     return (
-        <div className="flex flex-row min-h-screen bg-gray-50">
+        <div className="flex min-h-screen flex-row bg-[radial-gradient(circle_at_top,rgba(59,130,246,0.08),transparent_24%),linear-gradient(to_bottom,#f8fafc,#ffffff)]">
             <SideNav />
             
-            <div className="flex-1 flex flex-col md:ml-64">
+            <div className="flex flex-1 flex-col md:ml-64">
                 <DashboardHeader />
-                <main className="flex-1 p-4 md:p-6 overflow-y-auto">
+                <main className="flex-1 overflow-y-auto p-4 md:p-6">
                     {children}
                 </main>
             </div>

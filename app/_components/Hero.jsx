@@ -2,206 +2,195 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
-import { CheckCircle, DollarSign, PieChart, Shield, TrendingUp, Bell, FileText, Lock, BarChart2, Users, Zap } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { DollarSign, PieChart, Bell, FileText, Lock, TrendingUp, ArrowRight, Sparkles, ShieldCheck, Target, BrainCircuit } from "lucide-react";
 import Link from "next/link";
 
 function Hero() {
-  const router = useRouter();
-
   const fadeUp = {
     hidden: { opacity: 0, y: 40 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-100 via-white to-gray-50">
-    {/* Hero Section */}
-    <section className="container mx-auto px-4 py-10 md:py-20 flex flex-col items-center text-center">
+    <div className="min-h-screen bg-[radial-gradient(circle_at_top,rgba(59,130,246,0.12),transparent_30%),linear-gradient(to_bottom,#f8fbff,white)]">
+    <section className="relative mx-auto flex max-w-7xl flex-col items-center px-4 pb-16 pt-16 text-center sm:px-6 lg:px-8 lg:pb-24 lg:pt-24">
       <motion.div
-        className="max-w-4xl"
+        className="max-w-5xl"
         initial="hidden"
         animate="visible"
         variants={fadeUp}
       >
-        <h1 className="text-4xl md:text-6xl font-extrabold text-gray-900 mb-6 tracking-tight">
-          Take Control of Your <span className="bg-gradient-to-r from-indigo-600 via-pink-500 to-purple-600 bg-clip-text text-transparent animate-gradient">Finances</span>
+        <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-blue-200/70 bg-white/80 px-4 py-2 text-sm font-medium text-blue-700 shadow-sm backdrop-blur">
+          <Sparkles className="h-4 w-4" />
+          AI-powered personal finance, built for clarity.
+        </div>
+        <h1 className="mx-auto max-w-4xl text-5xl font-semibold tracking-tight text-slate-950 sm:text-6xl lg:text-7xl">
+          Build a finance system that feels
+          <span className="bg-gradient-to-r from-blue-600 via-cyan-500 to-emerald-500 bg-clip-text text-transparent animate-gradient"> effortless</span>
+          .
         </h1>
-        <p className="text-xl text-gray-600 mb-10 max-w-2xl mx-auto">
-          FinTrack helps you manage your money effortlessly with powerful budgeting tools, expense tracking, and financial insights.
+        <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-slate-600 sm:text-xl">
+          FinTrack brings budgets, expenses, alerts, and AI insights into one calm command center so you can move faster and spend with confidence.
         </p>
-        <div className="flex gap-4 justify-center">
-          <motion.div whileHover={{ scale: 1.08 }} whileTap={{ scale: 0.97 }}>
-            <Button size="lg" className="gap-2 shadow-lg bg-gradient-to-r from-indigo-500 to-purple-500 text-white hover:from-indigo-600 hover:to-purple-700 transition-all duration-300" onClick={() => router.push('/sign-up')}>
-              <Zap className="w-5 h-5 animate-bounce" />
-              Get Started Free
+        <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+          <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.98 }}>
+            <Button asChild size="lg" className="gap-2 rounded-full bg-slate-950 px-6 text-white shadow-xl shadow-slate-950/15 hover:bg-slate-800">
+              <Link href="/sign-up">
+                Start free
+                <ArrowRight className="h-4 w-4" />
+              </Link>
             </Button>
           </motion.div>
-          <motion.div whileHover={{ scale: 1.08 }} whileTap={{ scale: 0.97 }}>
-            <Button size="lg" variant="outline" className="gap-2 border-2 border-indigo-400 hover:bg-indigo-50 transition-all duration-300">
-              <PieChart className="w-5 h-5 animate-pulse" />
-              See Demo
+          <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.98 }}>
+            <Button asChild size="lg" variant="outline" className="gap-2 rounded-full border-slate-300 bg-white px-6 text-slate-700 hover:bg-slate-50">
+              <Link href="#features">
+                Explore features
+              </Link>
             </Button>
           </motion.div>
         </div>
+
+        <div className="mt-10 flex flex-wrap items-center justify-center gap-3 text-sm text-slate-500">
+          {[
+            "Live alerts",
+            "AI categorization",
+            "Budget tracking",
+            "Export-ready reports",
+          ].map((item) => (
+            <span key={item} className="rounded-full border border-slate-200 bg-white/80 px-4 py-2 shadow-sm backdrop-blur">
+              {item}
+            </span>
+          ))}
+        </div>
       </motion.div>
+
       <motion.div
-        className="mt-16 rounded-2xl border shadow-2xl overflow-hidden backdrop-blur-lg bg-white/60"
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 1, ease: "easeOut" }}
+        className="mt-14 w-full overflow-hidden rounded-[2rem] border border-slate-200 bg-white/80 shadow-[0_30px_80px_rgba(15,23,42,0.12)] backdrop-blur"
+        initial={{ opacity: 0, scale: 0.97, y: 20 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        transition={{ duration: 0.9, ease: "easeOut" }}
       >
         <motion.img
           src="/assets/preview.png"
-          alt="FinTrack Dashboard Preview"
-          className="w-full max-w-5xl object-cover"
-          initial={{ y: 30, opacity: 0 }}
+          alt="FinTrack dashboard preview"
+          className="w-full object-cover"
+          initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 1.2, ease: "easeOut" }}
+          transition={{ duration: 1.1, ease: "easeOut" }}
         />
       </motion.div>
     </section>
 
     {/* Features Section */}
-    <section id="features" className="py-20 bg-gradient-to-br from-white via-indigo-50 to-purple-50">
-      <div className="container mx-auto px-4">
-        <motion.div className="text-center mb-16" initial="hidden" animate="visible" variants={fadeUp}>
-          <h2 className="text-3xl font-extrabold text-gray-900 mb-4">Powerful Features</h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Everything you need to take control of your financial life
+    <section id="features" className="border-y border-slate-200 bg-white/80 py-20 backdrop-blur">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <motion.div className="mb-16 text-center" initial="hidden" animate="visible" variants={fadeUp}>
+          <h2 className="text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl">Built for serious money management</h2>
+          <p className="mx-auto mt-4 max-w-2xl text-lg text-slate-600">
+            Every screen is designed to reduce noise, surface risks early, and make financial decisions easier to trust.
           </p>
         </motion.div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {/* Feature Cards Animated */}
-          <motion.div whileHover={{ scale: 1.04, boxShadow: "0 8px 32px rgba(99,102,241,0.15)" }} initial="hidden" animate="visible" variants={fadeUp}>
-            <Card className="hover:shadow-2xl transition-shadow duration-300 bg-white/80 backdrop-blur-lg">
-              <CardHeader>
-                <div className="p-3 bg-indigo-100 rounded-lg w-fit mb-4">
-                  <DollarSign className="w-6 h-6 text-indigo-600" />
-                </div>
-                <CardTitle>Expense Tracking</CardTitle>
-                <CardDescription>Track every rupee with ease</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <p>Automatically categorize transactions and see where your money goes each month.</p>
-              </CardContent>
-            </Card>
-
-          </motion.div>
-          <motion.div whileHover={{ scale: 1.04, boxShadow: "0 8px 32px rgba(34,197,94,0.15)" }} initial="hidden" animate="visible" variants={fadeUp}>
-            <Card className="hover:shadow-2xl transition-shadow duration-300 bg-white/80 backdrop-blur-lg">
-              <CardHeader>
-                <div className="p-3 bg-green-100 rounded-lg w-fit mb-4">
-                  <PieChart className="w-6 h-6 text-green-600" />
-                </div>
-                <CardTitle>Smart Budgeting</CardTitle>
-                <CardDescription>Stay on top of your spending</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <p>Create custom budgets and get alerts when you're approaching your limits.</p>
-              </CardContent>
-            </Card>
-
-          </motion.div>
-          <motion.div whileHover={{ scale: 1.04, boxShadow: "0 8px 32px rgba(59,130,246,0.15)" }} initial="hidden" animate="visible" variants={fadeUp}>
-            <Card className="hover:shadow-2xl transition-shadow duration-300 bg-white/80 backdrop-blur-lg">
-              <CardHeader>
-                <div className="p-3 bg-blue-100 rounded-lg w-fit mb-4">
-                  <TrendingUp className="w-6 h-6 text-blue-600" />
-                </div>
-                <CardTitle>Financial Insights</CardTitle>
-                <CardDescription>Understand your money habits</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <p>Get personalized reports and visualizations of your financial health.</p>
-              </CardContent>
-            </Card>
-
-          </motion.div>
-          <motion.div whileHover={{ scale: 1.04, boxShadow: "0 8px 32px rgba(139,92,246,0.15)" }} initial="hidden" animate="visible" variants={fadeUp}>
-            <Card className="hover:shadow-2xl transition-shadow duration-300 bg-white/80 backdrop-blur-lg">
-              <CardHeader>
-                <div className="p-3 bg-purple-100 rounded-lg w-fit mb-4">
-                  <Bell className="w-6 h-6 text-purple-600" />
-                </div>
-                <CardTitle>Real-time Alerts</CardTitle>
-                <CardDescription>Never miss a payment</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <p>Get notified about bills, unusual spending, and important financial events.</p>
-              </CardContent>
-            </Card>
-
-          </motion.div>
-          <motion.div whileHover={{ scale: 1.04, boxShadow: "0 8px 32px rgba(234,179,8,0.15)" }} initial="hidden" animate="visible" variants={fadeUp}>
-            <Card className="hover:shadow-2xl transition-shadow duration-300 bg-white/80 backdrop-blur-lg">
-              <CardHeader>
-                <div className="p-3 bg-yellow-100 rounded-lg w-fit mb-4">
-                  <FileText className="w-6 h-6 text-yellow-600" />
-                </div>
-                <CardTitle>Reports & Export</CardTitle>
-                <CardDescription>Tax-ready documentation</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <p>Generate detailed reports and export your financial data in multiple formats.</p>
-              </CardContent>
-            </Card>
-
-          </motion.div>
-          <motion.div whileHover={{ scale: 1.04, boxShadow: "0 8px 32px rgba(239,68,68,0.15)" }} initial="hidden" animate="visible" variants={fadeUp}>
-            <Card className="hover:shadow-2xl transition-shadow duration-300 bg-white/80 backdrop-blur-lg">
-              <CardHeader>
-                <div className="p-3 bg-red-100 rounded-lg w-fit mb-4">
-                  <Lock className="w-6 h-6 text-red-600" />
-                </div>
-                <CardTitle>Bank-level Security</CardTitle>
-                <CardDescription>Your data is always safe</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <p>256-bit encryption and multi-factor authentication protect your information.</p>
-              </CardContent>
-            </Card>
-          </motion.div>
+        <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+          {[
+            {
+              icon: DollarSign,
+              title: "Expense Tracking",
+              description: "Capture every transaction, categorize it instantly, and review spending without friction.",
+              accent: "from-blue-500 to-cyan-500",
+            },
+            {
+              icon: PieChart,
+              title: "Smart Budgeting",
+              description: "Set realistic budgets, monitor progress, and see where each category stands in real time.",
+              accent: "from-emerald-500 to-teal-500",
+            },
+            {
+              icon: TrendingUp,
+              title: "Financial Insights",
+              description: "Turn raw transactions into clear trends and actionable signals for better decisions.",
+              accent: "from-indigo-500 to-violet-500",
+            },
+            {
+              icon: Bell,
+              title: "Real-time Alerts",
+              description: "Stay ahead of unusual spending and important budget thresholds before they become problems.",
+              accent: "from-amber-500 to-orange-500",
+            },
+            {
+              icon: FileText,
+              title: "Reports & Export",
+              description: "Move data cleanly into reporting workflows with exports built for follow-up work.",
+              accent: "from-rose-500 to-pink-500",
+            },
+            {
+              icon: Lock,
+              title: "Bank-level Security",
+              description: "Keep account data isolated, protected, and aligned with modern app security expectations.",
+              accent: "from-slate-700 to-slate-900",
+            },
+          ].map((feature, index) => (
+            <motion.div key={feature.title} whileHover={{ y: -4 }} initial="hidden" animate="visible" variants={fadeUp} transition={{ delay: index * 0.05 }}>
+              <Card className="h-full border-slate-200 bg-white/90 shadow-sm transition-all duration-300 hover:shadow-xl">
+                <CardHeader>
+                  <div className={`mb-4 inline-flex rounded-2xl bg-gradient-to-br ${feature.accent} p-3 text-white shadow-lg`}>
+                    <feature.icon className="h-6 w-6" />
+                  </div>
+                  <CardTitle className="text-xl text-slate-950">{feature.title}</CardTitle>
+                  <CardDescription className="text-slate-600">{feature.description}</CardDescription>
+                </CardHeader>
+              </Card>
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>
 
     {/* How It Works Section */}
     <section id="how-it-works" className="py-20">
-      <div className="container mx-auto px-4">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <motion.div className="text-center mb-16" initial="hidden" animate="visible" variants={fadeUp}>
-          <h2 className="text-3xl font-extrabold text-gray-900 mb-4">How FinTrack Works</h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Get started in minutes and transform your financial life
+          <h2 className="text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl">How FinTrack works</h2>
+          <p className="mx-auto mt-4 max-w-2xl text-lg text-slate-600">
+            A simple flow that turns setup into useful feedback quickly.
           </p>
         </motion.div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {[{
-            step: 1,
-            title: "Connect Your Accounts",
-            desc: "Securely link your bank accounts, credit cards, and investment portfolios."
-          }, {
-            step: 2,
-            title: "Set Your Budgets",
-            desc: "Create custom budgets for different spending categories that matter to you."
-          }, {
-            step: 3,
-            title: "Track & Optimize",
-            desc: "Get insights and recommendations to improve your financial health."
-          }].map((item, idx) => (
+        <div className="grid gap-6 md:grid-cols-3">
+          {[
+            {
+              step: 1,
+              icon: Target,
+              title: "Define the goal",
+              desc: "Add your budgets and income baselines so the system knows what healthy spending looks like.",
+            },
+            {
+              step: 2,
+              icon: BrainCircuit,
+              title: "Analyze every transaction",
+              desc: "Transactions are categorized and checked for anomalies before they get lost in the noise.",
+            },
+            {
+              step: 3,
+              icon: ShieldCheck,
+              title: "Act with confidence",
+              desc: "Use alerts, charts, and summaries to make faster decisions with less guesswork.",
+            },
+          ].map((item, idx) => (
             <motion.div
               key={item.step}
-              className="flex flex-col items-center text-center"
-              initial={{ opacity: 0, y: 40 }}
+              className="rounded-3xl border border-slate-200 bg-white p-8 text-left shadow-sm"
+              initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7 + idx * 0.2, ease: "easeOut" }}
+              transition={{ duration: 0.7 + idx * 0.15, ease: "easeOut" }}
             >
-              <div className="bg-indigo-100 p-4 rounded-full mb-4 shadow-lg">
-                <span className="text-indigo-600 font-bold text-xl animate-bounce">{item.step}</span>
+              <div className="mb-6 flex items-center justify-between">
+                <div className="inline-flex rounded-2xl bg-slate-950 p-3 text-white shadow-lg">
+                  <item.icon className="h-5 w-5" />
+                </div>
+                <span className="text-sm font-semibold uppercase tracking-[0.24em] text-slate-400">Step {item.step}</span>
               </div>
-              <h3 className="text-xl font-bold mb-2">{item.title}</h3>
-              <p className="text-gray-600">{item.desc}</p>
+              <h3 className="text-xl font-semibold text-slate-950">{item.title}</h3>
+              <p className="mt-3 text-slate-600">{item.desc}</p>
             </motion.div>
           ))}
         </div>
@@ -209,60 +198,62 @@ function Hero() {
     </section>
 
     {/* CTA Section */}
-    <section className="py-20 bg-gradient-to-r from-indigo-600 via-pink-500 to-purple-600 text-white">
-      <motion.div className="container mx-auto px-4 text-center" initial="hidden" animate="visible" variants={fadeUp}>
-        <h2 className="text-3xl font-extrabold mb-6 tracking-tight animate-gradient">Ready to Transform Your Finances?</h2>
-        <p className="text-xl mb-8 max-w-2xl mx-auto">
-          Join thousands of users who have taken control of their financial future with FinTrack.
+    <section className="py-20">
+      <motion.div className="mx-auto max-w-5xl rounded-[2rem] bg-slate-950 px-6 py-14 text-center text-white shadow-[0_30px_80px_rgba(15,23,42,0.28)] sm:px-10" initial="hidden" animate="visible" variants={fadeUp}>
+        <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">Ready to run your money like a product?</h2>
+        <p className="mx-auto mt-4 max-w-2xl text-lg text-slate-300">
+          Start with a clean, focused dashboard and let FinTrack do the repetitive work: tracking, categorizing, and alerting.
         </p>
-        <motion.div whileHover={{ scale: 1.08 }} whileTap={{ scale: 0.97 }}>
-          <Button size="lg" className="bg-white text-indigo-600 hover:bg-gray-100 gap-2 shadow-lg">
-            <Zap className="w-5 h-5 animate-bounce" />
-            Get Started Free
+        <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.98 }} className="mt-8 inline-flex">
+          <Button asChild size="lg" className="gap-2 rounded-full bg-white px-6 text-slate-950 hover:bg-slate-100">
+            <Link href="/sign-up">
+              Get started free
+              <ArrowRight className="h-4 w-4" />
+            </Link>
           </Button>
         </motion.div>
       </motion.div>
     </section>
 
     {/* Footer */}
-    <footer className="bg-gray-900 text-white py-12">
-      <motion.div className="container mx-auto px-4" initial="hidden" animate="visible" variants={fadeUp}>
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+    <footer className="border-t border-slate-200 bg-white py-12 text-slate-600">
+      <motion.div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8" initial="hidden" animate="visible" variants={fadeUp}>
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
           <div>
-            <div className="flex items-center gap-2 mb-4">
-              <DollarSign className="w-6 h-6 text-indigo-400 animate-spin-slow" />
-              <span className="text-xl font-bold">FinTrack</span>
+            <div className="mb-4 flex items-center gap-2">
+              <DollarSign className="h-6 w-6 text-blue-600 animate-spin-slow" />
+              <span className="text-xl font-semibold text-slate-950">FinTrack</span>
             </div>
-            <p className="text-gray-400">
-              The simplest way to manage your personal finances.
+            <p>
+              A focused finance workspace for people who want more signal and less clutter.
             </p>
           </div>
           <div>
-            <h3 className="font-bold mb-4">Product</h3>
+            <h3 className="mb-4 font-semibold text-slate-950">Product</h3>
             <ul className="space-y-2">
-              <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Features</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Pricing</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-white transition-colors">FAQ</a></li>
+              <li><a href="#features" className="transition-colors hover:text-slate-950">Features</a></li>
+              <li><a href="#how-it-works" className="transition-colors hover:text-slate-950">How it works</a></li>
+              <li><a href="/sign-up" className="transition-colors hover:text-slate-950">Get started</a></li>
             </ul>
           </div>
           <div>
-            <h3 className="font-bold mb-4">Company</h3>
+            <h3 className="mb-4 font-semibold text-slate-950">Company</h3>
             <ul className="space-y-2">
-              <li><a href="#" className="text-gray-400 hover:text-white transition-colors">About</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Blog</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Careers</a></li>
+              <li><a href="#" className="transition-colors hover:text-slate-950">About</a></li>
+              <li><a href="#" className="transition-colors hover:text-slate-950">Blog</a></li>
+              <li><a href="#" className="transition-colors hover:text-slate-950">Careers</a></li>
             </ul>
           </div>
           <div>
-            <h3 className="font-bold mb-4">Legal</h3>
+            <h3 className="mb-4 font-semibold text-slate-950">Legal</h3>
             <ul className="space-y-2">
-              <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Privacy</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Terms</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Security</a></li>
+              <li><a href="#" className="transition-colors hover:text-slate-950">Privacy</a></li>
+              <li><a href="#" className="transition-colors hover:text-slate-950">Terms</a></li>
+              <li><a href="#" className="transition-colors hover:text-slate-950">Security</a></li>
             </ul>
           </div>
         </div>
-        <div className="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
+        <div className="mt-12 border-t border-slate-200 pt-8 text-center text-sm text-slate-500">
           <p>© {new Date().getFullYear()} FinTrack. All rights reserved.</p>
         </div>
       </motion.div>
