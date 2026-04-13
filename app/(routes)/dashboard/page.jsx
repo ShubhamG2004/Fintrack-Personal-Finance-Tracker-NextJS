@@ -192,11 +192,11 @@ function Dashboard() {
   };
 
   return (
-    <div className="p-8">
-      <div className="flex justify-between items-center">
+    <div className="p-6 md:p-8">
+      <div className="mb-6 flex items-center justify-between">
         <div>
-          <h1 className="font-bold text-4xl">Hi, {user?.fullName} 👋</h1>
-          <p className="text-gray-500">
+          <h1 className="text-3xl font-semibold tracking-tight text-slate-900 md:text-4xl">Hi, {user?.fullName}</h1>
+          <p className="mt-1 text-slate-500">
             Here&apos;s what&apos;s happening with your money. Let&apos;s manage your expenses.
           </p>
         </div>
@@ -213,7 +213,7 @@ function Dashboard() {
         </div>
       )}
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 mt-6 gap-5">
+      <div className="mt-6 grid grid-cols-1 gap-5 lg:grid-cols-3">
         <div className="lg:col-span-2 space-y-5">
           <BarChartDashboard budgetList={budgetList} />
           <ExpenseChart data={categoryData} />
@@ -226,7 +226,10 @@ function Dashboard() {
         <div className="space-y-5">
           <FinancialHealthCard userId={user?.primaryEmailAddress?.emailAddress} />
           <AlertPanel alerts={alerts} />
-          <h2 className="font-bold text-lg">Latest Budgets</h2>
+          <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
+            <h2 className="text-lg font-semibold text-slate-900">Latest Budgets</h2>
+            <p className="mt-1 text-sm text-slate-500">Track allocation and remaining balance.</p>
+          </div>
           {budgetList?.length > 0 ? (
             budgetList.map((budget, index) => (
               <BudgetItem budget={budget} key={budget.id || index} />

@@ -33,6 +33,11 @@ function CardInfo({ budgetList, incomeList }) {
     };
   }, [budgetList, incomeList]);
 
+  const budgetUtilization =
+    totalBudget > 0 ? Math.min(100, Math.round((totalSpend / totalBudget) * 100)) : 0;
+
+  const netBalance = totalIncome - totalSpend;
+
   useEffect(() => {
     if (totalBudget > 0 || totalIncome > 0 || totalSpend > 0) {
       const fetchFinancialAdvice = async () => {
@@ -51,85 +56,90 @@ function CardInfo({ budgetList, incomeList }) {
   return (
     <div>
       {budgetList?.length > 0 ? (
-        <div>
-          {/* AI Advice Card */}
-          <div className="p-6 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-2xl shadow-lg text-white mb-6">
-            <div className="flex items-center justify-between">
+        <div className="space-y-5">
+          <div className="rounded-2xl border border-slate-200 bg-gradient-to-r from-slate-900 to-slate-800 p-6 text-white shadow-sm">
+            <div className="flex items-start justify-between gap-4">
               <div className="flex-1">
-                <div className="flex items-center mb-3">
-                  <h2 className="text-lg font-semibold mr-2">FinTrack AI</h2>
-                  <Sparkles className="w-5 h-5 text-yellow-300 animate-pulse" />
+                <div className="mb-3 flex items-center">
+                  <h2 className="mr-2 text-lg font-semibold">FinTrack AI Insight</h2>
+                  <Sparkles className="h-5 w-5 text-sky-300" />
                 </div>
-                <p className="text-sm font-light leading-relaxed">
+                <p className="text-sm leading-relaxed text-slate-200">
                   {financialAdvice || "Analyzing your financial data..."}
                 </p>
               </div>
-              <div className="hidden md:block ml-4">
-                <div className="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center">
-                  <Sparkles className="w-8 h-8 text-yellow-300" />
+              <div className="ml-4 hidden md:block">
+                <div className="flex h-14 w-14 items-center justify-center rounded-full border border-white/20 bg-white/10">
+                  <Sparkles className="h-6 w-6 text-sky-300" />
                 </div>
+              </div>
+            </div>
+
+            <div className="mt-4 grid grid-cols-2 gap-3 md:w-[420px]">
+              <div className="rounded-xl border border-white/10 bg-white/5 px-3 py-2">
+                <p className="text-xs text-slate-300">Budget Utilization</p>
+                <p className="text-sm font-semibold">{budgetUtilization}%</p>
+              </div>
+              <div className="rounded-xl border border-white/10 bg-white/5 px-3 py-2">
+                <p className="text-xs text-slate-300">Net Balance</p>
+                <p className="text-sm font-semibold">₹{formatNumber(netBalance)}</p>
               </div>
             </div>
           </div>
 
-          {/* Stats Cards */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
-            {/* Total Budget Card */}
-            <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-all duration-300 group">
+            <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition-all duration-200 hover:shadow-md">
               <div className="flex justify-between items-center">
                 <div>
-                  <p className="text-sm text-gray-500 mb-1">Total Budget</p>
-                  <h3 className="text-2xl font-bold text-gray-800">
+                  <p className="mb-1 text-sm text-slate-500">Total Budget</p>
+                  <h3 className="text-2xl font-semibold text-slate-900">
                     ₹{formatNumber(totalBudget)}
                   </h3>
                 </div>
-                <div className="bg-blue-100 group-hover:bg-blue-600 transition-all duration-300 p-3 rounded-lg">
-                  <PiggyBank className="text-blue-600 group-hover:text-white h-6 w-6" />
+                <div className="rounded-xl bg-blue-50 p-3">
+                  <PiggyBank className="h-6 w-6 text-blue-600" />
                 </div>
               </div>
             </div>
 
-            {/* Total Spend Card */}
-            <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-all duration-300 group">
+            <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition-all duration-200 hover:shadow-md">
               <div className="flex justify-between items-center">
                 <div>
-                  <p className="text-sm text-gray-500 mb-1">Total Spend</p>
-                  <h3 className="text-2xl font-bold text-gray-800">
+                  <p className="mb-1 text-sm text-slate-500">Total Spend</p>
+                  <h3 className="text-2xl font-semibold text-slate-900">
                     ₹{formatNumber(totalSpend)}
                   </h3>
                 </div>
-                <div className="bg-red-100 group-hover:bg-red-600 transition-all duration-300 p-3 rounded-lg">
-                  <ReceiptText className="text-red-600 group-hover:text-white h-6 w-6" />
+                <div className="rounded-xl bg-red-50 p-3">
+                  <ReceiptText className="h-6 w-6 text-red-600" />
                 </div>
               </div>
             </div>
 
-            {/* Budget Count Card */}
-            <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-all duration-300 group">
+            <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition-all duration-200 hover:shadow-md">
               <div className="flex justify-between items-center">
                 <div>
-                  <p className="text-sm text-gray-500 mb-1">No. Of Budgets</p>
-                  <h3 className="text-2xl font-bold text-gray-800">
+                  <p className="mb-1 text-sm text-slate-500">No. of Budgets</p>
+                  <h3 className="text-2xl font-semibold text-slate-900">
                     {budgetList?.length}
                   </h3>
                 </div>
-                <div className="bg-green-100 group-hover:bg-green-600 transition-all duration-300 p-3 rounded-lg">
-                  <Wallet className="text-green-600 group-hover:text-white h-6 w-6" />
+                <div className="rounded-xl bg-emerald-50 p-3">
+                  <Wallet className="h-6 w-6 text-emerald-600" />
                 </div>
               </div>
             </div>
 
-            {/* Income Card */}
-            <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-all duration-300 group">
+            <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition-all duration-200 hover:shadow-md">
               <div className="flex justify-between items-center">
                 <div>
-                  <p className="text-sm text-gray-500 mb-1">Total Income</p>
-                  <h3 className="text-2xl font-bold text-gray-800">
+                  <p className="mb-1 text-sm text-slate-500">Total Income</p>
+                  <h3 className="text-2xl font-semibold text-slate-900">
                     ₹{formatNumber(totalIncome)}
                   </h3>
                 </div>
-                <div className="bg-purple-100 group-hover:bg-purple-600 transition-all duration-300 p-3 rounded-lg">
-                  <IndianRupee className="text-purple-600 group-hover:text-white h-6 w-6" />
+                <div className="rounded-xl bg-violet-50 p-3">
+                  <IndianRupee className="h-6 w-6 text-violet-600" />
                 </div>
               </div>
             </div>
@@ -139,7 +149,7 @@ function CardInfo({ budgetList, incomeList }) {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
           {[1, 2, 3, 4].map((item, index) => (
             <div
-              className="h-[120px] w-full bg-gradient-to-r from-gray-100 to-gray-50 animate-pulse rounded-xl"
+              className="h-[120px] w-full animate-pulse rounded-2xl border border-slate-200 bg-slate-100"
               key={index}
             ></div>
           ))}

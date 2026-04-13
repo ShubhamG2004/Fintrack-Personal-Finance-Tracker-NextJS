@@ -5,11 +5,11 @@ import {
   CalendarDays,
   IndianRupee,
   Loader,
-  PlusCircle,
+  Plus,
   Receipt,
   Repeat2,
   Tag,
-  Zap,
+  Wallet,
 } from "lucide-react";
 import moment from "moment";
 import React, { useState } from "react";
@@ -93,107 +93,91 @@ function AddExpense({ budgetId, user, refreshData }) {
 
   return (
     <motion.div 
-      className="bg-white/70 backdrop-blur-lg p-6 rounded-2xl shadow-lg border border-white/20 hover:shadow-2xl transition-all duration-300 overflow-hidden relative"
+      className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, ease: "easeOut" }}
-      whileHover={{ y: -4, boxShadow: "0 20px 40px rgba(239,68,68,0.15)" }}
+      transition={{ duration: 0.35, ease: "easeOut" }}
     >
-      {/* Gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-orange-50/20 via-white/10 to-red-50/20 opacity-0 hover:opacity-100 transition-opacity duration-300" />
-      
-      <div className="relative z-10">
+      <div>
         <motion.div 
-          className="flex items-center gap-3 mb-6"
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.1 }}
+          className="mb-6 flex items-center gap-3"
+          initial={{ opacity: 0, y: 6 }}
+          animate={{ opacity: 1, y: 0 }}
         >
-          <motion.div 
-            className="p-2 bg-gradient-to-r from-orange-400 to-red-500 rounded-lg shadow-sm"
-            whileHover={{ rotate: 10, scale: 1.1 }}
-            transition={{ duration: 0.2 }}
-          >
-            <PlusCircle className="w-5 h-5 text-white" />
-          </motion.div>
-          <h2 className="font-bold text-lg bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent">
+          <div className="rounded-lg border border-slate-200 bg-slate-50 p-2">
+            <Plus className="h-5 w-5 text-slate-700" />
+          </div>
+          <h2 className="text-lg font-semibold text-slate-900">
             Add New Expense
           </h2>
         </motion.div>
         
         <motion.div 
           className="space-y-4"
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
+          transition={{ delay: 0.1 }}
         >
           <div>
-            <label className="text-sm font-medium text-gray-700 mb-2 flex items-center gap-2">
+            <label className="mb-2 flex items-center gap-2 text-sm font-medium text-slate-700">
               <Receipt className="w-4 h-4" />
               Expense Name
             </label>
-            <motion.div whileFocus={{ scale: 1.02 }}>
-              <Input
-                className="focus-visible:ring-orange-200 border-orange-200 focus:border-orange-400 transition-colors bg-white/70 backdrop-blur-sm h-11 rounded-xl"
-                placeholder="e.g. Groceries, Dining Out"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              />
-            </motion.div>
+            <Input
+              className="h-11 rounded-xl border-slate-300 bg-white focus-visible:ring-slate-300"
+              placeholder="e.g. Groceries, Dining Out"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
           </div>
 
           <div>
-            <label className="text-sm font-medium text-gray-700 mb-2 flex items-center gap-2">
+            <label className="mb-2 flex items-center gap-2 text-sm font-medium text-slate-700">
               <Tag className="w-4 h-4" />
               Category
             </label>
-            <motion.div whileFocus={{ scale: 1.02 }}>
-              <Input
-                className="focus-visible:ring-orange-200 border-orange-200 focus:border-orange-400 transition-colors bg-white/70 backdrop-blur-sm h-11 rounded-xl"
-                placeholder="e.g. Groceries, Travel, Utilities"
-                value={category}
-                onChange={(e) => setCategory(e.target.value)}
-              />
-            </motion.div>
+            <Input
+              className="h-11 rounded-xl border-slate-300 bg-white focus-visible:ring-slate-300"
+              placeholder="e.g. Groceries, Travel, Utilities"
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+            />
           </div>
           
           <div>
-            <label className="text-sm font-medium text-gray-700 mb-2 flex items-center gap-2">
-              <Zap className="w-4 h-4" />
+            <label className="mb-2 flex items-center gap-2 text-sm font-medium text-slate-700">
+              <Wallet className="w-4 h-4" />
               Expense Amount
             </label>
-            <motion.div 
-              className="relative"
-              whileFocus={{ scale: 1.02 }}
-            >
+            <div className="relative">
               <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">
                 <IndianRupee className="w-4 h-4" />
               </span>
               <Input
                 type="number"
-                className="pl-10 focus-visible:ring-orange-200 border-orange-200 focus:border-orange-400 transition-colors bg-white/70 backdrop-blur-sm h-11 rounded-xl"
+                className="h-11 rounded-xl border-slate-300 bg-white pl-10 focus-visible:ring-slate-300"
                 placeholder="e.g. 1500"
                 value={amount}
                 onChange={(e) => setAmount(e.target.value)}
               />
-            </motion.div>
+            </div>
           </div>
 
-          <div className="rounded-2xl border border-orange-100 bg-gradient-to-br from-orange-50/80 to-red-50/60 p-4">
+          <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
             <div className="flex items-center justify-between gap-3">
               <div>
-                <p className="font-semibold text-gray-800 flex items-center gap-2">
-                  <Repeat2 className="w-4 h-4 text-orange-500" />
+                <p className="flex items-center gap-2 font-semibold text-slate-800">
+                  <Repeat2 className="w-4 h-4 text-slate-600" />
                   Recurring transaction
                 </p>
-                <p className="text-sm text-gray-500 mt-1">
+                <p className="mt-1 text-sm text-slate-500">
                   Keep this expense on a schedule for predictable spending.
                 </p>
               </div>
               <Button
                 type="button"
                 variant={isRecurring ? "default" : "outline"}
-                className={isRecurring ? "bg-orange-500 hover:bg-orange-600" : "border-orange-200"}
+                className={isRecurring ? "bg-slate-900 hover:bg-slate-800" : "border-slate-300"}
                 onClick={() => setIsRecurring((current) => !current)}
               >
                 {isRecurring ? "Enabled" : "Disabled"}
@@ -209,15 +193,15 @@ function AddExpense({ budgetId, user, refreshData }) {
                     onClick={() => setRecurrence(option.value)}
                     className={`rounded-xl border px-3 py-2 text-sm font-medium transition-all duration-200 ${
                       recurrence === option.value
-                        ? "border-orange-500 bg-orange-500 text-white shadow-md"
-                        : "border-orange-100 bg-white/70 text-gray-600 hover:border-orange-200 hover:text-orange-600"
+                        ? "border-slate-900 bg-slate-900 text-white"
+                        : "border-slate-300 bg-white text-slate-600 hover:border-slate-400"
                     }`}
                   >
                     {option.label}
                   </button>
                 ))}
               </div>
-              <p className="mt-3 text-xs text-gray-500 flex items-center gap-1">
+              <p className="mt-3 flex items-center gap-1 text-xs text-slate-500">
                 <CalendarDays className="w-3 h-3" />
                 {isRecurring
                   ? `Next charge marked as ${recurrence}.`
@@ -230,32 +214,15 @@ function AddExpense({ budgetId, user, refreshData }) {
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
+          transition={{ delay: 0.2 }}
         >
-          <motion.div
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
+          <Button
+            disabled={!name || !amount || loading}
+            onClick={addNewExpense}
+            className="mt-6 h-12 w-full rounded-xl bg-slate-900 text-white hover:bg-slate-800 disabled:opacity-70"
           >
-            <Button
-              disabled={!name || !amount || loading}
-              onClick={addNewExpense}
-              className="mt-6 w-full h-12 rounded-xl bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed shadow-lg"
-            >
-              {loading ? (
-                <motion.div
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                >
-                  <Loader className="w-4 h-4" />
-                </motion.div>
-              ) : (
-                <span className="flex items-center gap-2">
-                  <PlusCircle className="w-4 h-4 animate-pulse" />
-                  Add Expense
-                </span>
-              )}
-            </Button>
-          </motion.div>
+            {loading ? <Loader className="h-4 w-4 animate-spin" /> : "Add Expense"}
+          </Button>
         </motion.div>
       </div>
     </motion.div>
