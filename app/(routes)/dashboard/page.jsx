@@ -11,6 +11,8 @@ import ExpenseListTable from "./expenses/_components/ExpenseListTable";
 import AlertBanner from "@/components/dashboard/AlertBanner";
 import AlertPanel from "@/components/dashboard/AlertPanel";
 import ExpenseChart from "@/components/dashboard/ExpenseChart";
+import FinancialHealthCard from "@/components/dashboard/FinancialHealthCard";
+import moment from "moment";
 
 function Dashboard() {
   const { user } = useUser();
@@ -50,13 +52,15 @@ function Dashboard() {
     const grouped = expensesList.reduce((acc, expense) => {
       if (!expense?.createdAt) return acc;
 
-      const [day, month, year] = String(expense.createdAt)
-        .split("/")
-        .map(Number);
+      const parsed = moment(
+        expense.createdAt,
+        [moment.ISO_8601, "YYYY-MM-DD", "DD/MM/YYYY", "DD/MM/yyyy"],
+        true
+      );
 
-      if (!day || !month || !year) return acc;
+      if (!parsed.isValid()) return acc;
 
-      const key = `${year}-${String(month).padStart(2, "0")}`;
+      const key = parsed.format("YYYY-MM");
       const amount = Number(expense?.amount || 0);
 
       if (!acc[key]) {
@@ -220,6 +224,7 @@ function Dashboard() {
         </div>
         
         <div className="space-y-5">
+          <FinancialHealthCard userId={user?.primaryEmailAddress?.emailAddress} />
           <AlertPanel alerts={alerts} />
           <h2 className="font-bold text-lg">Latest Budgets</h2>
           {budgetList?.length > 0 ? (
