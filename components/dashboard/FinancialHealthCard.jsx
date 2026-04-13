@@ -63,7 +63,7 @@ export default function FinancialHealthCard({ userId }) {
   const topCategories = Array.isArray(data.topCategories) ? data.topCategories : [];
 
   return (
-    <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+    <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-5">
       <div className="flex items-center justify-between gap-3">
         <h3 className="text-base font-semibold text-slate-950">Financial Health</h3>
         <span
@@ -73,7 +73,7 @@ export default function FinancialHealthCard({ userId }) {
         </span>
       </div>
 
-      <div className="mt-4 flex items-center gap-4">
+      <div className="mt-4 flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:gap-4">
         <div className="flex h-20 w-20 items-center justify-center rounded-full border-4 border-slate-100 bg-slate-50">
           <span className={`text-2xl font-bold ${scoreStyles[riskBand] ?? scoreStyles.MEDIUM}`}>
             {data.score}
@@ -82,8 +82,8 @@ export default function FinancialHealthCard({ userId }) {
         <p className="text-sm text-slate-600">{data.summary}</p>
       </div>
 
-      <div className="mt-5 grid grid-cols-1 gap-3 text-sm text-slate-700">
-        <div className="flex items-center justify-between rounded-xl border border-slate-200 bg-slate-50 px-3 py-2">
+      <div className="mt-5 grid grid-cols-1 gap-3 text-xs text-slate-700 sm:text-sm">
+        <div className="flex items-center justify-between gap-2 rounded-xl border border-slate-200 bg-slate-50 px-3 py-2">
           <span className="flex items-center gap-2">
             <Activity className="h-4 w-4 text-slate-500" />
             Budget Utilization
@@ -91,7 +91,7 @@ export default function FinancialHealthCard({ userId }) {
           <strong>{metrics.budgetUtilization ?? 0}%</strong>
         </div>
 
-        <div className="flex items-center justify-between rounded-xl border border-slate-200 bg-slate-50 px-3 py-2">
+        <div className="flex items-center justify-between gap-2 rounded-xl border border-slate-200 bg-slate-50 px-3 py-2">
           <span className="flex items-center gap-2">
             <CircleGauge className="h-4 w-4 text-slate-500" />
             Projected Spend
@@ -99,7 +99,7 @@ export default function FinancialHealthCard({ userId }) {
           <strong>Rs {Number(metrics.projectedMonthSpend ?? 0).toLocaleString("en-IN")}</strong>
         </div>
 
-        <div className="flex items-center justify-between rounded-xl border border-slate-200 bg-slate-50 px-3 py-2">
+        <div className="flex items-center justify-between gap-2 rounded-xl border border-slate-200 bg-slate-50 px-3 py-2">
           <span className="flex items-center gap-2">
             <BadgeIndianRupee className="h-4 w-4 text-slate-500" />
             Recurring Commitments
@@ -109,7 +109,7 @@ export default function FinancialHealthCard({ userId }) {
           </strong>
         </div>
 
-        <div className="flex items-center justify-between rounded-xl border border-slate-200 bg-slate-50 px-3 py-2">
+        <div className="flex items-center justify-between gap-2 rounded-xl border border-slate-200 bg-slate-50 px-3 py-2">
           <span className="flex items-center gap-2">
             <ShieldAlert className="h-4 w-4 text-slate-500" />
             Monthly Budget

@@ -56,8 +56,8 @@ function CardInfo({ budgetList, incomeList }) {
   return (
     <div>
       {budgetList?.length > 0 ? (
-        <div className="space-y-5">
-          <div className="rounded-2xl border border-slate-200 bg-gradient-to-r from-slate-900 to-slate-800 p-6 text-white shadow-sm">
+        <div className="space-y-4 sm:space-y-5">
+          <div className="rounded-2xl border border-slate-200 bg-gradient-to-r from-slate-900 to-slate-800 p-4 text-white shadow-sm sm:p-6">
             <div className="flex items-start justify-between gap-4">
               <div className="flex-1">
                 <div className="mb-3 flex items-center">
@@ -75,7 +75,7 @@ function CardInfo({ budgetList, incomeList }) {
               </div>
             </div>
 
-            <div className="mt-4 grid grid-cols-2 gap-3 md:w-[420px]">
+            <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2 md:w-[420px]">
               <div className="rounded-xl border border-white/10 bg-white/5 px-3 py-2">
                 <p className="text-xs text-slate-300">Budget Utilization</p>
                 <p className="text-sm font-semibold">{budgetUtilization}%</p>
@@ -87,12 +87,12 @@ function CardInfo({ budgetList, incomeList }) {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
-            <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition-all duration-200 hover:shadow-md">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4 lg:gap-5">
+            <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm transition-all duration-200 hover:shadow-md sm:p-5">
               <div className="flex justify-between items-center">
                 <div>
                   <p className="mb-1 text-sm text-slate-500">Total Budget</p>
-                  <h3 className="text-2xl font-semibold text-slate-900">
+                  <h3 className="text-xl font-semibold text-slate-900 sm:text-2xl">
                     ₹{formatNumber(totalBudget)}
                   </h3>
                 </div>
@@ -102,11 +102,11 @@ function CardInfo({ budgetList, incomeList }) {
               </div>
             </div>
 
-            <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition-all duration-200 hover:shadow-md">
+            <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm transition-all duration-200 hover:shadow-md sm:p-5">
               <div className="flex justify-between items-center">
                 <div>
                   <p className="mb-1 text-sm text-slate-500">Total Spend</p>
-                  <h3 className="text-2xl font-semibold text-slate-900">
+                  <h3 className="text-xl font-semibold text-slate-900 sm:text-2xl">
                     ₹{formatNumber(totalSpend)}
                   </h3>
                 </div>
@@ -116,11 +116,11 @@ function CardInfo({ budgetList, incomeList }) {
               </div>
             </div>
 
-            <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition-all duration-200 hover:shadow-md">
+            <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm transition-all duration-200 hover:shadow-md sm:p-5">
               <div className="flex justify-between items-center">
                 <div>
                   <p className="mb-1 text-sm text-slate-500">No. of Budgets</p>
-                  <h3 className="text-2xl font-semibold text-slate-900">
+                  <h3 className="text-xl font-semibold text-slate-900 sm:text-2xl">
                     {budgetList?.length}
                   </h3>
                 </div>
@@ -130,11 +130,11 @@ function CardInfo({ budgetList, incomeList }) {
               </div>
             </div>
 
-            <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition-all duration-200 hover:shadow-md">
+            <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm transition-all duration-200 hover:shadow-md sm:p-5">
               <div className="flex justify-between items-center">
                 <div>
                   <p className="mb-1 text-sm text-slate-500">Total Income</p>
-                  <h3 className="text-2xl font-semibold text-slate-900">
+                  <h3 className="text-xl font-semibold text-slate-900 sm:text-2xl">
                     ₹{formatNumber(totalIncome)}
                   </h3>
                 </div>

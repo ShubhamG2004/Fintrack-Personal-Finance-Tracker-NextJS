@@ -56,8 +56,8 @@ function BarChartDashboard({ budgetList }) {
     totalBudget > 0 ? Math.round((totalSpend / totalBudget) * 100) : 0;
 
   return (
-    <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-all duration-200 hover:shadow-md">
-      <div className="flex justify-between items-center mb-6">
+    <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm transition-all duration-200 hover:shadow-md sm:p-6">
+      <div className="mb-4 flex flex-col gap-3 sm:mb-6 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h2 className="text-xl font-semibold text-slate-900">Budget Activity</h2>
           <p className="text-sm text-slate-500">Monthly spending vs budget</p>
@@ -68,23 +68,25 @@ function BarChartDashboard({ budgetList }) {
         </div>
       </div>
 
-      <div className="h-[300px]">
+      <div className="h-64 sm:h-[300px]">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart
             data={budgetList}
             margin={{
               top: 0,
-              right: 20,
+              right: 8,
               left: 0,
-              bottom: 10,
+              bottom: 14,
             }}
-            barSize={32}
+            barSize={22}
           >
             <XAxis 
               dataKey="name" 
               axisLine={false}
               tickLine={false}
               tick={{ fill: '#64748B', fontSize: 12 }}
+              minTickGap={24}
+              tickMargin={10}
             />
             <YAxis 
               axisLine={false}
@@ -127,7 +129,7 @@ function BarChartDashboard({ budgetList }) {
         </ResponsiveContainer>
       </div>
 
-      <div className="mt-4 flex items-center justify-between rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-xs text-slate-600">
+      <div className="mt-4 flex flex-col gap-1 rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-xs text-slate-600 sm:flex-row sm:items-center sm:justify-between">
         <span>Total Spent: ₹{totalSpend.toLocaleString("en-IN")}</span>
         <span>Total Budget: ₹{totalBudget.toLocaleString("en-IN")}</span>
       </div>

@@ -192,11 +192,11 @@ function Dashboard() {
   };
 
   return (
-    <div className="p-6 md:p-8">
-      <div className="mb-6 flex items-center justify-between">
+    <div className="p-4 sm:p-6 md:p-8">
+      <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="text-3xl font-semibold tracking-tight text-slate-900 md:text-4xl">Hi, {user?.fullName}</h1>
-          <p className="mt-1 text-slate-500">
+          <h1 className="text-2xl font-semibold tracking-tight text-slate-900 sm:text-3xl md:text-4xl">Hi, {user?.fullName}</h1>
+          <p className="mt-1 max-w-2xl text-sm text-slate-500 sm:text-base">
             Here&apos;s what&apos;s happening with your money. Let&apos;s manage your expenses.
           </p>
         </div>
@@ -213,8 +213,8 @@ function Dashboard() {
         </div>
       )}
 
-      <div className="mt-6 grid grid-cols-1 gap-5 lg:grid-cols-3">
-        <div className="lg:col-span-2 space-y-5">
+      <div className="mt-6 grid grid-cols-1 gap-4 sm:gap-5 lg:grid-cols-3">
+        <div className="space-y-4 sm:space-y-5 lg:col-span-2">
           <BarChartDashboard budgetList={budgetList} />
           <ExpenseChart data={categoryData} />
           <ExpenseListTable
@@ -223,7 +223,7 @@ function Dashboard() {
           />
         </div>
         
-        <div className="space-y-5">
+        <div className="space-y-4 sm:space-y-5">
           <FinancialHealthCard userId={user?.primaryEmailAddress?.emailAddress} />
           <AlertPanel alerts={alerts} />
           <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
