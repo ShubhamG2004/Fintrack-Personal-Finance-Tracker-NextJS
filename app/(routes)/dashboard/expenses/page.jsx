@@ -202,46 +202,46 @@ function ExpensesScreen() {
   };
 
   return (
-    <div className='p-6 md:p-10 bg-gradient-to-br from-white via-red-50/30 to-orange-50/30 min-h-screen'>
+    <div className='min-h-screen p-4 sm:p-6 md:p-8'>
       <motion.div
         initial="hidden"
         animate="visible"
         variants={fadeUp}
-        className='mb-8'
+        className='mb-6 sm:mb-8'
       >
-        <div className='flex items-center gap-3 mb-4'>
-          <div className='p-3 bg-gradient-to-r from-red-500 to-orange-500 rounded-xl shadow-lg'>
-            <Receipt className='w-8 h-8 text-white' />
+        <div className='mb-4 flex items-center gap-3'>
+          <div className='rounded-xl border border-slate-200 bg-white p-3 shadow-sm'>
+            <Receipt className='h-7 w-7 text-slate-700' />
           </div>
           <div>
-            <h1 className='font-extrabold text-4xl bg-gradient-to-r from-red-600 to-orange-600 bg-clip-text text-transparent'>
+            <h1 className='text-3xl font-semibold tracking-tight text-slate-900 sm:text-4xl'>
               My Expenses
             </h1>
-            <p className='text-gray-600 mt-1'>Track and analyze your spending patterns</p>
+            <p className='mt-1 text-sm text-slate-500 sm:text-base'>Track and analyze your spending patterns</p>
           </div>
         </div>
 
-        <div className='bg-white/70 backdrop-blur-lg border border-white/20 shadow-lg rounded-2xl p-4 mb-6'>
-          <div className='grid grid-cols-1 lg:grid-cols-3 gap-4'>
-            <div className='relative'>
-              <Search className='absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400' />
+        <div className='mb-6 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-5'>
+          <div className='grid grid-cols-1 gap-4 lg:grid-cols-12'>
+            <div className='relative lg:col-span-5'>
+              <Search className='absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400' />
               <Input
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                placeholder='Search by name, category, budget, or date'
-                className='pl-10 h-11 rounded-xl border-gray-200 bg-white/80'
+                placeholder='Search name, category, budget, or date'
+                className='h-11 rounded-xl border-slate-300 bg-white pl-10'
               />
             </div>
 
-            <div className='space-y-2'>
-              <label className='text-sm font-medium text-gray-700 flex items-center gap-2'>
+            <div className='space-y-2 lg:col-span-3'>
+              <label className='flex items-center gap-2 text-sm font-medium text-slate-700'>
                 <Tag className='w-4 h-4' />
                 Category
               </label>
               <select
                 value={categoryFilter}
                 onChange={(e) => setCategoryFilter(e.target.value)}
-                className='h-11 w-full rounded-xl border border-gray-200 bg-white/80 px-3 text-sm text-gray-700 outline-none focus:ring-2 focus:ring-orange-200'
+                className='h-11 w-full rounded-xl border border-slate-300 bg-white px-3 text-sm text-slate-700 outline-none focus:ring-2 focus:ring-slate-300'
               >
                 {categoryOptions.map((option) => (
                   <option key={option} value={option}>
@@ -251,15 +251,15 @@ function ExpensesScreen() {
               </select>
             </div>
 
-            <div className='space-y-2'>
-              <label className='text-sm font-medium text-gray-700 flex items-center gap-2'>
+            <div className='space-y-2 lg:col-span-4'>
+              <label className='flex items-center gap-2 text-sm font-medium text-slate-700'>
                 <Repeat2 className='w-4 h-4' />
                 Schedule
               </label>
               <select
                 value={recurrenceFilter}
                 onChange={(e) => setRecurrenceFilter(e.target.value)}
-                className='h-11 w-full rounded-xl border border-gray-200 bg-white/80 px-3 text-sm text-gray-700 outline-none focus:ring-2 focus:ring-orange-200'
+                className='h-11 w-full rounded-xl border border-slate-300 bg-white px-3 text-sm text-slate-700 outline-none focus:ring-2 focus:ring-slate-300'
               >
                 <option value='all'>All transactions</option>
                 <option value='recurring'>Recurring only</option>
@@ -274,14 +274,14 @@ function ExpensesScreen() {
 
           <div className='mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-4'>
             <div className='space-y-2'>
-              <label className='text-sm font-medium text-gray-700 flex items-center gap-2'>
+              <label className='flex items-center gap-2 text-sm font-medium text-slate-700'>
                 <ArrowUpDown className='w-4 h-4' />
                 Sort
               </label>
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
-                className='h-11 w-full rounded-xl border border-gray-200 bg-white/80 px-3 text-sm text-gray-700 outline-none focus:ring-2 focus:ring-orange-200'
+                className='h-11 w-full rounded-xl border border-slate-300 bg-white px-3 text-sm text-slate-700 outline-none focus:ring-2 focus:ring-slate-300'
               >
                 <option value='newest'>Newest first</option>
                 <option value='oldest'>Oldest first</option>
@@ -292,7 +292,7 @@ function ExpensesScreen() {
             </div>
 
             <div className='space-y-2'>
-              <label className='text-sm font-medium text-gray-700 flex items-center gap-2'>
+              <label className='flex items-center gap-2 text-sm font-medium text-slate-700'>
                 <Download className='w-4 h-4' />
                 Export
               </label>
@@ -300,38 +300,38 @@ function ExpensesScreen() {
                 type='button'
                 onClick={exportVisibleExpenses}
                 disabled={filteredExpenses.length === 0}
-                className='h-11 w-full rounded-xl bg-gradient-to-r from-red-500 to-orange-500 hover:from-red-600 hover:to-orange-600 disabled:opacity-60 disabled:cursor-not-allowed'
+                className='h-11 w-full rounded-xl bg-slate-900 text-white hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-60'
               >
                 Export CSV
               </Button>
             </div>
 
             <div className='space-y-2'>
-              <label className='text-sm font-medium text-gray-700 flex items-center gap-2'>
+              <label className='flex items-center gap-2 text-sm font-medium text-slate-700'>
                 <Filter className='w-4 h-4' />
                 Active filters
               </label>
-              <div className='h-11 flex items-center gap-2 rounded-xl border border-gray-200 bg-white/80 px-3 text-sm text-gray-600'>
-                <Filter className='w-4 h-4 text-gray-400' />
+              <div className='flex h-11 items-center gap-2 rounded-xl border border-slate-300 bg-slate-50 px-3 text-sm text-slate-600'>
+                <Filter className='w-4 h-4 text-slate-400' />
                 {hasFilters ? 'Custom view enabled' : 'All expenses'}
               </div>
             </div>
 
             <div className='space-y-2'>
-              <label className='text-sm font-medium text-gray-700 flex items-center gap-2'>
+              <label className='flex items-center gap-2 text-sm font-medium text-slate-700'>
                 <PieChart className='w-4 h-4' />
                 Insight
               </label>
-              <div className='h-11 flex items-center gap-2 rounded-xl border border-gray-200 bg-white/80 px-3 text-sm text-gray-600'>
-                <BadgePercent className='w-4 h-4 text-gray-400' />
+              <div className='flex h-11 items-center gap-2 rounded-xl border border-slate-300 bg-slate-50 px-3 text-sm text-slate-600'>
+                <BadgePercent className='w-4 h-4 text-slate-400' />
                 {expenseInsights.topCategory ? expenseInsights.topCategory.name : 'No data yet'}
               </div>
             </div>
           </div>
 
           <div className='mt-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between'>
-            <p className='text-sm text-gray-600'>
-              Showing <span className='font-semibold text-gray-800'>{filteredExpenses.length}</span> of <span className='font-semibold text-gray-800'>{expensesList.length}</span> transactions
+            <p className='text-sm text-slate-600'>
+              Showing <span className='font-semibold text-slate-800'>{filteredExpenses.length}</span> of <span className='font-semibold text-slate-800'>{expensesList.length}</span> transactions
             </p>
 
             <Button
@@ -343,7 +343,7 @@ function ExpensesScreen() {
                 setRecurrenceFilter('all');
               }}
               disabled={!hasFilters}
-              className='w-fit gap-2 text-gray-600 hover:text-gray-800'
+              className='w-fit gap-2 text-slate-600 hover:text-slate-900'
             >
               <RotateCcw className='w-4 h-4' />
               Reset filters
@@ -351,64 +351,63 @@ function ExpensesScreen() {
           </div>
         </div>
         
-        {/* Stats Cards */}
-        <div className='grid grid-cols-1 md:grid-cols-4 gap-4 mb-6'>
+        <div className='mb-6 grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4'>
           <motion.div 
-            className='bg-white/70 backdrop-blur-lg p-4 rounded-xl border border-white/20 shadow-lg'
-            whileHover={{ scale: 1.02, boxShadow: "0 8px 32px rgba(239,68,68,0.15)" }}
+            className='rounded-2xl border border-slate-200 bg-white p-4 shadow-sm'
+            whileHover={{ scale: 1.01, y: -2 }}
           >
             <div className='flex items-center justify-between'>
               <div>
-                <p className='text-sm text-gray-600'>Total Expenses</p>
+                <p className='text-sm text-slate-500'>Total Expenses</p>
                 <div className='flex items-center gap-1'>
-                  <IndianRupee className='w-5 h-5 text-red-500' />
-                  <p className='font-bold text-xl text-gray-800'>
+                  <IndianRupee className='w-5 h-5 text-slate-600' />
+                  <p className='text-xl font-semibold text-slate-900'>
                     {loading ? '...' : totalExpenses.toLocaleString('en-IN')}
                   </p>
                 </div>
               </div>
-              <TrendingDown className='w-8 h-8 text-red-500' />
+              <TrendingDown className='h-8 w-8 text-rose-500' />
             </div>
           </motion.div>
           
           <motion.div 
-            className='bg-white/70 backdrop-blur-lg p-4 rounded-xl border border-white/20 shadow-lg'
-            whileHover={{ scale: 1.02, boxShadow: "0 8px 32px rgba(59,130,246,0.15)" }}
+            className='rounded-2xl border border-slate-200 bg-white p-4 shadow-sm'
+            whileHover={{ scale: 1.01, y: -2 }}
           >
             <div className='flex items-center justify-between'>
               <div>
-                <p className='text-sm text-gray-600'>Total Transactions</p>
-                <p className='font-bold text-xl text-gray-800'>
+                <p className='text-sm text-slate-500'>Total Transactions</p>
+                <p className='text-xl font-semibold text-slate-900'>
                   {loading ? '...' : expensesList.length}
                 </p>
               </div>
-              <BarChart3 className='w-8 h-8 text-blue-500' />
+              <BarChart3 className='h-8 w-8 text-sky-600' />
             </div>
           </motion.div>
           
           <motion.div 
-            className='bg-white/70 backdrop-blur-lg p-4 rounded-xl border border-white/20 shadow-lg'
-            whileHover={{ scale: 1.02, boxShadow: "0 8px 32px rgba(139,92,246,0.15)" }}
+            className='rounded-2xl border border-slate-200 bg-white p-4 shadow-sm'
+            whileHover={{ scale: 1.01, y: -2 }}
           >
             <div className='flex items-center justify-between'>
               <div>
-                <p className='text-sm text-gray-600'>This Month</p>
-                <p className='font-bold text-xl text-gray-800'>Active</p>
+                <p className='text-sm text-slate-500'>This Month</p>
+                <p className='text-xl font-semibold text-slate-900'>Active</p>
               </div>
-              <Calendar className='w-8 h-8 text-purple-500' />
+              <Calendar className='h-8 w-8 text-violet-600' />
             </div>
           </motion.div>
           
           <motion.div 
-            className='bg-white/70 backdrop-blur-lg p-4 rounded-xl border border-white/20 shadow-lg'
-            whileHover={{ scale: 1.02, boxShadow: "0 8px 32px rgba(34,197,94,0.15)" }}
+            className='rounded-2xl border border-slate-200 bg-white p-4 shadow-sm'
+            whileHover={{ scale: 1.01, y: -2 }}
           >
             <div className='flex items-center justify-between'>
               <div>
-                <p className='text-sm text-gray-600'>Filters</p>
-                <p className='font-bold text-xl text-gray-800'>Available</p>
+                <p className='text-sm text-slate-500'>Filters</p>
+                <p className='text-xl font-semibold text-slate-900'>Available</p>
               </div>
-              <Filter className='w-8 h-8 text-green-500' />
+              <Filter className='h-8 w-8 text-emerald-600' />
             </div>
           </motion.div>
         </div>
@@ -422,73 +421,73 @@ function ExpensesScreen() {
         emptyDescription={hasFilters ? 'Try adjusting or clearing the filters to see more results.' : 'Start adding expenses to track your spending'}
       />
 
-      <div className='mt-8 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4'>
+      <div className='mt-8 grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4'>
         <motion.div
-          className='bg-white/70 backdrop-blur-lg p-4 rounded-xl border border-white/20 shadow-lg'
-          whileHover={{ scale: 1.02, boxShadow: '0 8px 32px rgba(239,68,68,0.15)' }}
+          className='rounded-2xl border border-slate-200 bg-white p-4 shadow-sm'
+          whileHover={{ scale: 1.01, y: -2 }}
         >
           <div className='flex items-center justify-between'>
             <div>
-              <p className='text-sm text-gray-600'>Average Expense</p>
+              <p className='text-sm text-slate-500'>Average Expense</p>
               <div className='flex items-center gap-1'>
-                <IndianRupee className='w-5 h-5 text-red-500' />
-                <p className='font-bold text-xl text-gray-800'>
+                <IndianRupee className='w-5 h-5 text-slate-600' />
+                <p className='text-xl font-semibold text-slate-900'>
                   {loading ? '...' : expenseInsights.averageExpense.toLocaleString('en-IN', { maximumFractionDigits: 0 })}
                 </p>
               </div>
             </div>
-            <Clock3 className='w-8 h-8 text-red-500' />
+            <Clock3 className='h-8 w-8 text-rose-500' />
           </div>
         </motion.div>
 
         <motion.div
-          className='bg-white/70 backdrop-blur-lg p-4 rounded-xl border border-white/20 shadow-lg'
-          whileHover={{ scale: 1.02, boxShadow: '0 8px 32px rgba(249,115,22,0.15)' }}
+          className='rounded-2xl border border-slate-200 bg-white p-4 shadow-sm'
+          whileHover={{ scale: 1.01, y: -2 }}
         >
           <div className='flex items-center justify-between'>
             <div>
-              <p className='text-sm text-gray-600'>Recurring Transactions</p>
-              <p className='font-bold text-xl text-gray-800'>
+              <p className='text-sm text-slate-500'>Recurring Transactions</p>
+              <p className='text-xl font-semibold text-slate-900'>
                 {loading ? '...' : expenseInsights.recurringCount}
               </p>
             </div>
-            <Repeat2 className='w-8 h-8 text-orange-500' />
+            <Repeat2 className='h-8 w-8 text-amber-500' />
           </div>
         </motion.div>
 
         <motion.div
-          className='bg-white/70 backdrop-blur-lg p-4 rounded-xl border border-white/20 shadow-lg'
-          whileHover={{ scale: 1.02, boxShadow: '0 8px 32px rgba(59,130,246,0.15)' }}
+          className='rounded-2xl border border-slate-200 bg-white p-4 shadow-sm'
+          whileHover={{ scale: 1.01, y: -2 }}
         >
           <div className='flex items-center justify-between'>
             <div>
-              <p className='text-sm text-gray-600'>Top Category</p>
-              <p className='font-bold text-xl text-gray-800'>
+              <p className='text-sm text-slate-500'>Top Category</p>
+              <p className='text-xl font-semibold text-slate-900'>
                 {loading ? '...' : expenseInsights.topCategory?.name ?? 'N/A'}
               </p>
-              <p className='text-xs text-gray-500 mt-1'>
+              <p className='mt-1 text-xs text-slate-500'>
                 {expenseInsights.topCategory ? `₹${expenseInsights.topCategory.amount.toLocaleString('en-IN')}` : 'No category data yet'}
               </p>
             </div>
-            <PieChart className='w-8 h-8 text-blue-500' />
+            <PieChart className='h-8 w-8 text-sky-600' />
           </div>
         </motion.div>
 
         <motion.div
-          className='bg-white/70 backdrop-blur-lg p-4 rounded-xl border border-white/20 shadow-lg'
-          whileHover={{ scale: 1.02, boxShadow: '0 8px 32px rgba(34,197,94,0.15)' }}
+          className='rounded-2xl border border-slate-200 bg-white p-4 shadow-sm'
+          whileHover={{ scale: 1.01, y: -2 }}
         >
           <div className='flex items-center justify-between'>
             <div>
-              <p className='text-sm text-gray-600'>Latest Entry</p>
-              <p className='font-bold text-xl text-gray-800'>
+              <p className='text-sm text-slate-500'>Latest Entry</p>
+              <p className='text-xl font-semibold text-slate-900'>
                 {loading ? '...' : expenseInsights.latestExpense?.name ?? 'N/A'}
               </p>
-              <p className='text-xs text-gray-500 mt-1'>
+              <p className='mt-1 text-xs text-slate-500'>
                 {expenseInsights.latestExpense ? expenseInsights.latestExpense.createdAt : 'No transactions yet'}
               </p>
             </div>
-            <BadgePercent className='w-8 h-8 text-green-500' />
+            <BadgePercent className='h-8 w-8 text-emerald-600' />
           </div>
         </motion.div>
       </div>
