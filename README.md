@@ -9,7 +9,7 @@
 A modern, AI-powered personal finance tracker that helps you monitor expenses, manage budgets, and make smarter financial decisions. Built with Next.js and enhanced with Google's Gemini AI for intelligent transaction categorization.
 
 
-## ✨ Features
+## ✨ Feature
 
 - 🤖 **AI-Powered Categorization** - Automatic transaction categorization using Google Gemini AI
 - 📊 **Interactive Dashboard** - Beautiful charts and visualizations with Recharts
